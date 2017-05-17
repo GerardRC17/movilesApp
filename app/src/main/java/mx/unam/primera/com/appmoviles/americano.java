@@ -98,11 +98,11 @@ public class americano extends Fragment {
         btnTest.setOnClickListener(this);
         txvResult = (TextView) view.findViewById(R.id.txvResult);*/
 
-        rv = (RecyclerView) view.findViewById(R.id.rv);
+        /*rv = (RecyclerView) view.findViewById(R.id.rv);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity().getApplicationContext());
-        rv.setLayoutManager(llm);
+        rv.setLayoutManager(llm);*/
 
-        getData(null);
+        getData(null, 1);
 
         return view;
     }
@@ -152,19 +152,20 @@ public class americano extends Fragment {
 
     }*/
 
-    public void getData(String id)
+    public void getData(String id, int type)
     {
         if (id == null)
             id = "null";
 
         final String value = id;
+        final int tp = type;
         Thread tr = new Thread()
         {
             @Override
             public void run()
             {
                 final Service service = new Service();
-                final String result = service.getEvent(value);
+                final String result = service.getEvent(value, tp);
                 Log.d("Resultado", String.valueOf(result));
 
                 getActivity().runOnUiThread(new Runnable()
@@ -187,12 +188,12 @@ public class americano extends Fragment {
                                     Toast.makeText(getActivity().getApplicationContext(), String.valueOf(events.size()), Toast.LENGTH_SHORT).show();
                                 } else
                                 {
-                                    Toast.makeText(getActivity().getApplicationContext(), ":S", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getActivity().getApplicationContext(), "No se encontraron datos", Toast.LENGTH_SHORT).show();
                                     Toast.makeText(getActivity().getApplicationContext(), String.valueOf(events.size()), Toast.LENGTH_SHORT).show();
                                 }
                             }
                             else
-                                Toast.makeText(getActivity().getApplicationContext(), ":S", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity().getApplicationContext(), "The request is Empty", Toast.LENGTH_SHORT).show();
 
                             Log.d("D", result.toString());
                         }

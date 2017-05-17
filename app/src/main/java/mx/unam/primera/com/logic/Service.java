@@ -25,7 +25,7 @@ import mx.unam.primera.com.model.Event;
 public class Service
 {
     Event event;
-    public String getEvent(String ev_id)
+    public String getEvent(String ev_id, int tp_id)
     {
         event = new Event();
         String line = "";
@@ -36,12 +36,14 @@ public class Service
         {
             // Cambiar por dirección web
             String strUrl =
-                    "http://192.168.1.64/MovilesWebService/scripts/service/req_events.php?evId="
+                    //"http://192.168.1.64/MovilesWebService/scripts/service/rest/req_events.php?evId="
+                    "http://livebr.esy.es/scripts/service/rest/req_events.php?evId="
                     //"Dirección web"
-                    //+ ev_id;
-                    + "null";
+                    + ev_id
+                    + "&tpId=" + tp_id;
             URL url = new URL(strUrl);
             HttpURLConnection connection = (HttpURLConnection)url.openConnection();
+
             result = new StringBuilder();
             try
             {

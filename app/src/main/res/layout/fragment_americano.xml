@@ -6,10 +6,10 @@
     tools:context="mx.unam.primera.com.appmoviles.americano">
 
 
-    <android.support.v7.widget.RecyclerView
+    <!--<android.support.v7.widget.RecyclerView
         android:id="@+id/rv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"/>-->
 
     <!--<android.support.v7.widget.RecyclerView
         android:id="@+id/rv"
@@ -34,4 +34,9 @@
                 android:layout_alignParentLeft="true" />
         </RelativeLayout>
     </android.support.v7.widget.RecyclerView>-->
+
+    <ListView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></ListView>
 </LinearLayout>
