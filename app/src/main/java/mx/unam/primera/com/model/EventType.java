@@ -6,16 +6,16 @@ package mx.unam.primera.com.model;
 
 public class EventType
 {
-    private String _id;
+    private int  _id;
     private String _name;
     //Seleccionar imagen
     //private
 
-    public String getId()
+    public int getId()
     {
         return this._id;
     }
-    public void setId(String value)
+    public void setId(int value)
     {
         this._id = value;
     }

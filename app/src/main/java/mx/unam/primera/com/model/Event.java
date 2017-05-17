@@ -18,6 +18,7 @@ public class Event
 
     public Event()
     {
+        _type = new EventType();
         _channelList = new ArrayList<>();
     }
 
