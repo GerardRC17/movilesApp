@@ -4,6 +4,10 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/AppMoviles.iml" filepath="$PROJECT_DIR$/AppMoviles.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+<<<<<<< HEAD
+=======
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+>>>>>>> afe3c622a39b00e1e19c0926444ef532be0fe699
       <module fileurl="file://$PROJECT_DIR$/movilesApp.iml" filepath="$PROJECT_DIR$/movilesApp.iml" />
     </modules>
   </component>

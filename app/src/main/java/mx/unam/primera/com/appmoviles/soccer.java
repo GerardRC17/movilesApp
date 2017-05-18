@@ -3,10 +3,24 @@ package mx.unam.primera.com.appmoviles;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Debug;
 import android.support.v4.app.Fragment;
+import android.support.v4.util.DebugUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CancellationException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
+
+import mx.unam.primera.com.logic.DataAsync;
+import mx.unam.primera.com.logic.Service;
+import mx.unam.primera.com.model.Event;
 
 
 /**
@@ -28,6 +42,9 @@ public class soccer extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    List<Event> events;
+    Service service;
 
     public soccer() {
         // Required empty public constructor
@@ -58,13 +75,19 @@ public class soccer extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        service = new Service();
+        events = new ArrayList<>();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_soccer, container, false);
+        View view = inflater.inflate(R.layout.fragment_soccer, container, false);
+        getData(null, 1);
+
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -104,5 +127,52 @@ public class soccer extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    public void getData(String id, int type)
+    {
+        if (id == null)
+            id = "null";
+
+        Event ev = new Event();
+        ev.setId(id);
+        ev.getType().setId(type);
+        String json = "";
+
+        try
+        {
+            DataAsync da = new DataAsync();
+            da.execute(ev);
+            json = da.get(4, TimeUnit.SECONDS);
+            Toast.makeText(getActivity().getApplicationContext(), "Exito :D", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getActivity().getApplicationContext(), json, Toast.LENGTH_SHORT).show();
+            Log.d("JSON ", json);
+        }
+        catch (TimeoutException tex)
+        {
+            Toast.makeText(getActivity().getApplicationContext(), "Tiempo excedido al conectar", Toast.LENGTH_SHORT).show();
+        }
+        catch (CancellationException cex)
+        {
+            Toast.makeText(getActivity().getApplicationContext(), "Error al conectar con el servidor", Toast.LENGTH_SHORT).show();
+        }
+        catch (Exception ex)
+        {
+            Toast.makeText(getActivity().getApplicationContext(), "Error con tarea asíncrona", Toast.LENGTH_SHORT).show();
+        }
+        finally
+        {
+            try
+            {
+                if (json.trim() != "")
+                    events = service.getEventsList(json);
+                else
+                    Toast.makeText(getActivity().getApplicationContext(), "No se encontraron datos", Toast.LENGTH_SHORT).show();
+            } catch (Exception ex)
+            {
+                Log.d("JSON", "Error al leer JSON/Agregar objetos a la lista de eventos");
+            }
+            Log.d("Long lista de eventos", String.valueOf(events.size()));
+        }
     }
 }
