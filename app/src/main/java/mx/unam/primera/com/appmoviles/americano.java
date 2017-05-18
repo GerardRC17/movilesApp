@@ -56,6 +56,9 @@ public class americano extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
+    List<Event> events;
+    Service service;
+
     public americano() {
         // Required empty public constructor
     }
@@ -84,9 +87,10 @@ public class americano extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
-
-
         }
+
+        service = new Service();
+        events = new ArrayList<>();
     }
 
     @Override
@@ -102,7 +106,7 @@ public class americano extends Fragment {
         LinearLayoutManager llm = new LinearLayoutManager(getActivity().getApplicationContext());
         rv.setLayoutManager(llm);*/
 
-        getData(null, 1);
+        events = service.getData(getActivity().getApplicationContext(), null, 1);
 
         return view;
     }
@@ -152,7 +156,7 @@ public class americano extends Fragment {
 
     }*/
 
-    public void getData(String id, int type)
+    /*public void getData(String id, int type)
     {
         if (id == null)
             id = "null";
@@ -207,5 +211,5 @@ public class americano extends Fragment {
             }
         };
         tr.start();
-    }
+    }*/
 }

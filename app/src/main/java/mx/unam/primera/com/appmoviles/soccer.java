@@ -85,7 +85,7 @@ public class soccer extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_soccer, container, false);
-        getData(null, 1);
+        events = service.getData(getActivity().getApplicationContext(), null, 2);
 
         return view;
     }
@@ -127,52 +127,5 @@ public class soccer extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
-    }
-
-    public void getData(String id, int type)
-    {
-        if (id == null)
-            id = "null";
-
-        Event ev = new Event();
-        ev.setId(id);
-        ev.getType().setId(type);
-        String json = "";
-
-        try
-        {
-            DataAsync da = new DataAsync();
-            da.execute(ev);
-            json = da.get(4, TimeUnit.SECONDS);
-            Toast.makeText(getActivity().getApplicationContext(), "Exito :D", Toast.LENGTH_SHORT).show();
-            //Toast.makeText(getActivity().getApplicationContext(), json, Toast.LENGTH_SHORT).show();
-            Log.d("JSON ", json);
-        }
-        catch (TimeoutException tex)
-        {
-            Toast.makeText(getActivity().getApplicationContext(), "Tiempo excedido al conectar", Toast.LENGTH_SHORT).show();
-        }
-        catch (CancellationException cex)
-        {
-            Toast.makeText(getActivity().getApplicationContext(), "Error al conectar con el servidor", Toast.LENGTH_SHORT).show();
-        }
-        catch (Exception ex)
-        {
-            Toast.makeText(getActivity().getApplicationContext(), "Error con tarea asíncrona", Toast.LENGTH_SHORT).show();
-        }
-        finally
-        {
-            try
-            {
-                if (json.trim() != "")
-                    events = service.getEventsList(json);
-                else
-                    Toast.makeText(getActivity().getApplicationContext(), "No se encontraron datos", Toast.LENGTH_SHORT).show();
-            } catch (Exception ex)
-            {
-                Log.d("JSON", "Error al leer JSON/Agregar objetos a la lista de eventos");
-            }
-            Log.d("Long lista de eventos", String.valueOf(events.size()));
-        }
     }
 }

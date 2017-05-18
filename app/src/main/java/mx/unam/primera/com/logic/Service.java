@@ -1,6 +1,8 @@
 package mx.unam.primera.com.logic;
 
+import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -15,6 +17,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.CancellationException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 import mx.unam.primera.com.model.Event;
 
@@ -116,5 +121,58 @@ public class Service
             Log.e("Deserializar", ex.getMessage().toString());
         }
         return events;
+    }
+
+    public List<Event> getData(Context context, String id, int type)
+    {
+        List<Event> events = new ArrayList<>();
+        if (id == null)
+            id = "null";
+
+        Event ev = new Event();
+        ev.setId(id);
+        ev.getType().setId(type);
+        String json = "";
+
+        try
+        {
+            DataAsync da = new DataAsync();
+            da.execute(ev);
+            json = da.get(4, TimeUnit.SECONDS);
+            Toast.makeText(context, "Exito :D", Toast.LENGTH_SHORT).show();
+            Log.d("JSON ", json);
+        }
+        catch (TimeoutException tex)
+        {
+            Toast.makeText(context, "Tiempo excedido al conectar", Toast.LENGTH_SHORT).show();
+        }
+        catch (CancellationException cex)
+        {
+            Toast.makeText(context, "Error al conectar con el servidor", Toast.LENGTH_SHORT).show();
+        }
+        catch (Exception ex)
+        {
+            Toast.makeText(context, "Error con tarea asíncrona", Toast.LENGTH_SHORT).show();
+            Log.e("Error tarea", ex.getMessage());
+        }
+        finally
+        {
+            try
+            {
+                if (json.trim() != "")
+                    events = getEventsList(json);
+                else
+                {
+                    Toast.makeText(context, "No se encontraron datos", Toast.LENGTH_SHORT).show();
+                    return null;
+                }
+            } catch (Exception ex)
+            {
+                Log.d("JSON", "Error al leer JSON/Agregar objetos a la lista de eventos");
+            }
+            Log.d("Long lista de eventos", String.valueOf(events.size()));
+
+            return events;
+        }
     }
 }
