@@ -8,6 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import mx.unam.primera.com.logic.Service;
+import mx.unam.primera.com.model.Event;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -28,6 +34,9 @@ public class especiales extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    List<Event> events;
+    Service service;
 
     public especiales() {
         // Required empty public constructor
@@ -58,13 +67,19 @@ public class especiales extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        service = new Service();
+        events = new ArrayList<>();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_especiales, container, false);
+        View view = inflater.inflate(R.layout.fragment_especiales, container, false);
+        events = service.getData(getActivity().getApplicationContext(), null, 7);
+
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

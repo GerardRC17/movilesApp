@@ -3,10 +3,24 @@ package mx.unam.primera.com.appmoviles;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Debug;
 import android.support.v4.app.Fragment;
+import android.support.v4.util.DebugUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CancellationException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
+
+import mx.unam.primera.com.logic.DataAsync;
+import mx.unam.primera.com.logic.Service;
+import mx.unam.primera.com.model.Event;
 
 
 /**
@@ -28,6 +42,9 @@ public class soccer extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    List<Event> events;
+    Service service;
 
     public soccer() {
         // Required empty public constructor
@@ -58,13 +75,19 @@ public class soccer extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        service = new Service();
+        events = new ArrayList<>();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_soccer, container, false);
+        View view = inflater.inflate(R.layout.fragment_soccer, container, false);
+        events = service.getData(getActivity().getApplicationContext(), null, 2);
+
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
