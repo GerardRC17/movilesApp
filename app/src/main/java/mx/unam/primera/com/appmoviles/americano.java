@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -58,6 +59,7 @@ public class americano extends Fragment {
 
     List<Event> events;
     Service service;
+    ProgressBar pb;
 
     public americano() {
         // Required empty public constructor
@@ -98,16 +100,9 @@ public class americano extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_americano, container, false);
-        /*btnTest = (Button) view.findViewById(R.id.btnTest);
-        btnTest.setOnClickListener(this);
-        txvResult = (TextView) view.findViewById(R.id.txvResult);*/
 
-        /*rv = (RecyclerView) view.findViewById(R.id.rv);
-        LinearLayoutManager llm = new LinearLayoutManager(getActivity().getApplicationContext());
-        rv.setLayoutManager(llm);*/
-
-        events = service.getData(getActivity().getApplicationContext(), null, 1);
-
+        pb = (ProgressBar)view.findViewById(R.id.pbLoading);
+        setLoadingThread();
         return view;
     }
 
@@ -149,12 +144,6 @@ public class americano extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
-
-    /*@Override
-    public void onClick(View v)
-    {
-
-    }*/
 
     /*public void getData(String id, int type)
     {
@@ -212,4 +201,25 @@ public class americano extends Fragment {
         };
         tr.start();
     }*/
+
+    private void setLoadingThread()
+    {
+        Thread tr = new Thread()
+        {
+            @Override
+            public void run()
+            {
+                getActivity().runOnUiThread(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        events = service.getData(getActivity().getApplicationContext(), null, 1);
+                        pb.setVisibility(View.GONE);
+                    }
+                });
+            }
+        };
+        tr.start();
+    }
 }

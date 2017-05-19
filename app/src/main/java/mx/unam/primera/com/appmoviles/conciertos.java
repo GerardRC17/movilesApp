@@ -77,7 +77,7 @@ public class conciertos extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_conciertos, container, false);
-        events = service.getData(getActivity().getApplicationContext(), null, 5);
+        setLoadingThread();
 
         return view;
     }
@@ -119,5 +119,26 @@ public class conciertos extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    private void setLoadingThread()
+    {
+        Thread tr = new Thread()
+        {
+            @Override
+            public void run()
+            {
+                getActivity().runOnUiThread(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        events = service.getData(getActivity().getApplicationContext(), null, 5);
+                        //pb.setVisibility(View.GONE);
+                    }
+                });
+            }
+        };
+        tr.start();
     }
 }

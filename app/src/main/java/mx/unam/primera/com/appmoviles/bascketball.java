@@ -76,7 +76,7 @@ public class bascketball extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_especiales, container, false);
-        events = service.getData(getActivity().getApplicationContext(), null, 3);
+        setLoadingThread();
 
         return view;
     }
@@ -118,5 +118,26 @@ public class bascketball extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    private void setLoadingThread()
+    {
+        Thread tr = new Thread()
+        {
+            @Override
+            public void run()
+            {
+                getActivity().runOnUiThread(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        events = service.getData(getActivity().getApplicationContext(), null, 3);
+                        //pb.setVisibility(View.GONE);
+                    }
+                });
+            }
+        };
+        tr.start();
     }
 }
