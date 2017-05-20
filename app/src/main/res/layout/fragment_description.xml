@@ -54,7 +54,7 @@
 
         <!-- Ya sea que sea ScrollView, ListView o parecidos-->
         <TextView
-            android:id="@+id/txvDescription"
+            android:id="@+id/txvDetails"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Descripción del evento"

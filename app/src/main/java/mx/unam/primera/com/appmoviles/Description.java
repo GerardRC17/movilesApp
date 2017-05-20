@@ -4,9 +4,18 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import mx.unam.primera.com.logic.Service;
+import mx.unam.primera.com.model.Event;
 
 
 /**
@@ -28,6 +37,13 @@ public class Description extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    String[] images = {"americanogrande.png", "soccergrande.png", "basquetgrande.png",
+            "baseballgrande.png", "musicalgrande.png", "premiogrande.png"};
+    Service service;
+    TextView txvTitle, txvSch, txvDetails;
+    Event event;
+    ImageView imgType;
 
     public Description() {
         // Required empty public constructor
@@ -58,13 +74,22 @@ public class Description extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        service = new Service();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_description, container, false);
+        View view = inflater.inflate(R.layout.fragment_description, container, false);
+        txvTitle = (TextView)view.findViewById(R.id.txvEventTitle);
+        txvSch = (TextView)view.findViewById(R.id.txvSchedule);
+        txvDetails = (TextView)view.findViewById(R.id.txvDetails);
+        imgType = (ImageView)view.findViewById(R.id.imgType);
+        setLoadingThread("1705051a12f");
+
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -104,5 +129,67 @@ public class Description extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    private void setLoadingThread(final String evId)
+    {
+        Thread tr = new Thread()
+        {
+            @Override
+            public void run()
+            {
+                getActivity().runOnUiThread(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        List<Event> temp = new ArrayList<Event>();
+                        try
+                        {
+                            temp = service.getData(getActivity().getApplicationContext(), evId, 0);
+                            event = temp.get(0);
+                            txvTitle.setText(event.getName().toString());
+                            txvDetails.setText(event.getDescription().toString());
+
+
+                            txvSch.setText(String.valueOf(android.text.format.DateFormat.format("yyyy-MM-dd hh:mm:ss a",
+                                    event.getDate())));
+
+                            switch (event.getType().getId())
+                            {
+                                case 1:
+                                    imgType.setImageResource(R.drawable.americanogrande);
+                                    break;
+                                case 2:
+                                    imgType.setImageResource(R.drawable.soccergrande);
+                                    break;
+                                case 3:
+                                    imgType.setImageResource(R.drawable.basquetgrande);
+                                    break;
+                                case 4:
+                                    imgType.setImageResource(R.drawable.baseballgrande);
+                                    break;
+                                case 5:
+                                    imgType.setImageResource(R.drawable.musicalgrande);
+                                    break;
+                                case 6:
+                                    imgType.setImageResource(R.drawable.premiogrande);
+                                    break;
+                                default:
+                                    break;
+                            }
+
+                            //pb.setVisibility(View.GONE);
+                        }
+                        catch (Exception ex)
+                        {
+                            Log.e("Obtención de datos", "No se pudieron obtener los datos");
+                            Log.e("Error", ex.getMessage());
+                        }
+                    }
+                });
+            }
+        };
+        tr.start();
     }
 }

@@ -35,18 +35,19 @@ import mx.unam.primera.com.model.Event;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,americano.OnFragmentInteractionListener,soccer.OnFragmentInteractionListener,
          bascketball.OnFragmentInteractionListener,baseball.OnFragmentInteractionListener,conciertos.OnFragmentInteractionListener,
-           especiales.OnFragmentInteractionListener{
+           especiales.OnFragmentInteractionListener, Description.OnFragmentInteractionListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        MediaPlayer mediaPlayer;
+        //// Easter Egg de Natalia
+        /*MediaPlayer mediaPlayer;
         mediaPlayer = MediaPlayer.create(this,R.raw.blaze);
         mediaPlayer.setLooping(true);
         mediaPlayer.setVolume(100,100);
-        mediaPlayer.start();
+        mediaPlayer.start();*/
 
 
 
@@ -129,7 +130,11 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_event) {
             fragment=new especiales();
             fragmentosSelec=true;
-
+        }
+        else if (id == R.id.nav_fav)
+        {
+            fragment=new Description();
+            fragmentosSelec=true;
         }
 
         if (fragmentosSelec){

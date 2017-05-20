@@ -13,6 +13,7 @@ public class Event
     private String _id;
     private String _name;
     private Date _sch;
+    private String _des;
     private EventType _type;
     private List<Channel> _channelList;
 
@@ -51,6 +52,16 @@ public class Event
     public void setDate(Date value)
     {
         this._sch = value;
+    }
+
+    public String getDescription()
+    {
+        return this._des;
+    }
+
+    public void setDescription(String des)
+    {
+        this._des = des;
     }
 
     public EventType getType() { return this._type; }

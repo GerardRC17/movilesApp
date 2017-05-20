@@ -108,10 +108,22 @@ public class Service
                 JSONObject ob = json.getJSONObject(i);
                 event.setId(ob.getString("ev_id"));
                 event.setName(ob.getString("ev_name"));
+                event.setDescription(ob.getString("ev_des"));
                 String strDate = ob.getString("ev_sch");
                 strDate = strDate.replace("-", "/");
                 SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.US);
                 event.setDate(format.parse(strDate));
+
+                try
+                {
+                    event.getType().setId(Integer.parseInt(ob.getString("tp_id")));
+                    event.getType().setName(ob.getString("tp_name"));
+                }
+                catch (Exception ex)
+                {
+                    Log.e("Tipo de Ev", "Error al agregar el tipo de evento");
+                }
+
                 events.add(event);
             }
         }
@@ -139,7 +151,8 @@ public class Service
             DataAsync da = new DataAsync();
             da.execute(ev);
             json = da.get(4, TimeUnit.SECONDS);
-            Toast.makeText(context, "Exito :D", Toast.LENGTH_SHORT).show();
+            if(json.length() > 0)
+                Toast.makeText(context, "Exito :D", Toast.LENGTH_SHORT).show();
             Log.d("JSON ", json);
         }
         catch (TimeoutException tex)
