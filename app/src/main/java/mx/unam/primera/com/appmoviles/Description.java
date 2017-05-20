@@ -43,7 +43,6 @@ public class Description extends Fragment {
     TextView txvTitle, txvSch, txvDetails;
     Event event;
     ImageView imgType;
-    List<Channel> tempCh;
 
     public Description() {
         // Required empty public constructor
@@ -87,7 +86,6 @@ public class Description extends Fragment {
         txvSch = (TextView)view.findViewById(R.id.txvSchedule);
         txvDetails = (TextView)view.findViewById(R.id.txvDetails);
         imgType = (ImageView)view.findViewById(R.id.imgType);
-        tempCh = new ArrayList<Channel>();
         setLoadingThread("180204b4603");
 
         return view;
@@ -181,8 +179,9 @@ public class Description extends Fragment {
                             }
 
                             //pb.setVisibility(View.GONE);
-                            tempCh = service.getData(getActivity().getApplicationContext(), evId);
+                            List<Channel> tempCh = service.getData(getActivity().getApplicationContext(), evId);
                             Log.d("Canales econtrados", String.valueOf(tempCh.size()));
+                            event.setChannelList(tempCh);
                         }
                         catch (Exception ex)
                         {
