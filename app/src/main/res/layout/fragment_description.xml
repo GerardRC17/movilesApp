@@ -21,7 +21,7 @@
                     android:id="@+id/imgType"
                     android:layout_width="225dp"
                     android:layout_height="280dp"
-                    android:src="@drawable/BasquetGrande"/>
+                    android:src="@drawable/basquetgrande"/>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -42,7 +42,7 @@
                         android:layout_gravity="right"/>
 
                     <TextView
-                        android:id="+@id/txvSchedule"
+                        android:id="@+id/txvSchedule"
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content"
                         android:layout_gravity="right"
