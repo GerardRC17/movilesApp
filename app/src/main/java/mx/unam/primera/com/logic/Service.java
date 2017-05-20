@@ -21,6 +21,7 @@ import java.util.concurrent.CancellationException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
+import mx.unam.primera.com.model.Channel;
 import mx.unam.primera.com.model.Event;
 
 /**
@@ -30,7 +31,7 @@ import mx.unam.primera.com.model.Event;
 public class Service
 {
     Event event;
-    public String getEvent(String ev_id, int tp_id)
+    /*public String getEvent(String ev_id, int tp_id)
     {
         event = new Event();
         String line = "";
@@ -78,7 +79,7 @@ public class Service
         }
 
         return result.toString();
-    }
+    }*/
 
     public boolean isReqEmpty(String response)
     {
@@ -135,6 +136,33 @@ public class Service
         return events;
     }
 
+    public List<Channel> getChannelList(String strJson)
+    {
+        List<Channel> channels = new ArrayList<>();
+        try
+        {
+            JSONArray json = new JSONArray(strJson);
+            Channel channel;
+            for (int i = 0; i < json.length(); i++)
+            {
+                channel = new Channel();
+                JSONObject ob = json.getJSONObject(i);
+                channel.setId(Integer.parseInt(ob.getString("ch_id")));
+                channel.setName(ob.getString("ch_name"));
+                channel.setAbbreviation(ob.getString("ch_abv"));
+                channel.setImageUrl(new URL(ob.getString("ch_img")));
+
+                channels.add(channel);
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.d("Error al deserializar", "Algo salio mal :S -- ");
+            Log.e("Deserializar", ex.getMessage().toString());
+        }
+        return channels;
+    }
+
     public List<Event> getData(Context context, String id, int type)
     {
         List<Event> events = new ArrayList<>();
@@ -186,6 +214,54 @@ public class Service
             Log.d("Long lista de eventos", String.valueOf(events.size()));
 
             return events;
+        }
+    }
+
+    public List<Channel> getData(Context context, String id)
+    {
+        List<Channel> channelList = new ArrayList<Channel>();
+        String json = "";
+
+        try
+        {
+            DataChannelsAsync da = new DataChannelsAsync();
+            da.execute(id);
+            json = da.get(4, TimeUnit.SECONDS);
+            if(json.length() > 0)
+                Toast.makeText(context, "Exito :D", Toast.LENGTH_SHORT).show();
+            Log.d("JSON ", json);
+        }
+        catch (TimeoutException tex)
+        {
+            Toast.makeText(context, "Tiempo excedido al conectar", Toast.LENGTH_SHORT).show();
+        }
+        catch (CancellationException cex)
+        {
+            Toast.makeText(context, "Error al conectar con el servidor", Toast.LENGTH_SHORT).show();
+        }
+        catch (Exception ex)
+        {
+            Toast.makeText(context, "Error con tarea asíncrona", Toast.LENGTH_SHORT).show();
+            Log.e("Error tarea", ex.getMessage());
+        }
+        finally
+        {
+            try
+            {
+                if (json.trim() != "")
+                    channelList = getChannelList(json);
+                else
+                {
+                    Toast.makeText(context, "No se encontraron datos", Toast.LENGTH_SHORT).show();
+                    return null;
+                }
+            } catch (Exception ex)
+            {
+                Log.d("JSON", "Error al leer JSON/Agregar objetos a la lista de eventos");
+            }
+            Log.d("Long lista de eventos", String.valueOf(channelList.size()));
+
+            return channelList;
         }
     }
 }

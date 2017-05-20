@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mx.unam.primera.com.logic.Service;
+import mx.unam.primera.com.model.Channel;
 import mx.unam.primera.com.model.Event;
 
 
@@ -38,12 +39,11 @@ public class Description extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    String[] images = {"americanogrande.png", "soccergrande.png", "basquetgrande.png",
-            "baseballgrande.png", "musicalgrande.png", "premiogrande.png"};
     Service service;
     TextView txvTitle, txvSch, txvDetails;
     Event event;
     ImageView imgType;
+    List<Channel> tempCh;
 
     public Description() {
         // Required empty public constructor
@@ -87,7 +87,8 @@ public class Description extends Fragment {
         txvSch = (TextView)view.findViewById(R.id.txvSchedule);
         txvDetails = (TextView)view.findViewById(R.id.txvDetails);
         imgType = (ImageView)view.findViewById(R.id.imgType);
-        setLoadingThread("1705051a12f");
+        tempCh = new ArrayList<Channel>();
+        setLoadingThread("180204b4603");
 
         return view;
     }
@@ -152,7 +153,7 @@ public class Description extends Fragment {
                             txvDetails.setText(event.getDescription().toString());
 
 
-                            txvSch.setText(String.valueOf(android.text.format.DateFormat.format("yyyy-MM-dd hh:mm:ss a",
+                            txvSch.setText(String.valueOf(android.text.format.DateFormat.format("dd MMMM yyyy hh:mm a",
                                     event.getDate())));
 
                             switch (event.getType().getId())
@@ -180,6 +181,8 @@ public class Description extends Fragment {
                             }
 
                             //pb.setVisibility(View.GONE);
+                            tempCh = service.getData(getActivity().getApplicationContext(), evId);
+                            Log.d("Canales econtrados", String.valueOf(tempCh.size()));
                         }
                         catch (Exception ex)
                         {

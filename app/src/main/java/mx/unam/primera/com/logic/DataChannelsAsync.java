@@ -13,15 +13,15 @@ import java.net.URL;
 import mx.unam.primera.com.model.Event;
 
 /**
- * Created by Samuel on 16/05/2017.
+ * Created by Samuel on 20/05/2017.
  */
 
-public class DataAsync extends AsyncTask<Event, Void, String>
+public class DataChannelsAsync extends AsyncTask<String, Void, String>
 {
     @Override
-    protected String doInBackground(Event... params)
+    protected String doInBackground(String... params)
     {
-        Event event = params[0];
+        String id = params[0];
         String line = "";
         int response = 0;
         StringBuilder result = null;
@@ -30,11 +30,11 @@ public class DataAsync extends AsyncTask<Event, Void, String>
         {
             // Cambiar por dirección web
             String strUrl =
-                    //"http://192.168.1.64/MovilesWebService/scripts/service/rest/req_events.php?evId="
-                            "http://livebr.esy.es/scripts/service/rest/req_events.php?evId="
+                    //"http://192.168.1.64/MovilesWebService/scripts/service/rest/req_eventChannelList.php?ev_id="
+                            "http://livebr.esy.es/scripts/service/rest/req_eventChannelList.php?ev_id="
                             //"Dirección web"
-                            + event.getId().toString()
-                            + "&tpId=" + String.valueOf(event.getType().getId());
+                            + id
+                            + "&tpId=null";
             URL url = new URL(strUrl);
             HttpURLConnection connection = (HttpURLConnection)url.openConnection();
 

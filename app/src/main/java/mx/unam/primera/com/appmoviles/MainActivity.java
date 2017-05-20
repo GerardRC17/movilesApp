@@ -41,9 +41,10 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        final MediaPlayer mediaPlayer;
+        //// Easter Egg de Natalia
+        /*final MediaPlayer mediaPlayer;
         mediaPlayer = MediaPlayer.create(this,R.raw.blaze);
-        mediaPlayer.setLooping(true);
+        mediaPlayer.setLooping(false);
         mediaPlayer.setVolume(100,100);
 
         Runnable rn = new Runnable()
@@ -51,13 +52,12 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void run()
             {
-                //// Easter Egg de Natalia
                 mediaPlayer.start();
             }
         };
 
         Thread music = new Thread(rn);
-        music.start();
+        music.start();*/
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
