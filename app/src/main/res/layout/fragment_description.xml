@@ -4,10 +4,73 @@
     android:layout_height="match_parent"
     tools:context="mx.unam.primera.com.appmoviles.Description">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="220dp">
 
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#fefeef">
+
+                <ImageView
+                    android:id="@+id/imgType"
+                    android:layout_width="225dp"
+                    android:layout_height="280dp"
+                    android:src="@drawable/BasquetGrande"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="5dp"
+                    android:orientation="vertical"
+                    android:layout_gravity="right|bottom">
+                    <TextView
+                        android:id="@+id/txvEventTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Nombre del evento"
+                        android:textColor="@color/NEGRO"
+                        android:textSize="37dp"
+                        android:layout_gravity="right"/>
+
+                    <TextView
+                        android:id="+@id/txvSchedule"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:layout_gravity="right"
+                        android:text="Horario"
+                        android:textSize="20dp"/>
+                </LinearLayout>
+            </FrameLayout>
+        </RelativeLayout>
+
+        <!-- Ya sea que sea ScrollView, ListView o parecidos-->
+        <TextView
+            android:id="@+id/txvDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Descripción del evento"
+            android:textSize="18dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"/>
+
+        <ListView
+            android:id="@+id/lvChannelList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp">
+
+        </ListView>
+    </LinearLayout>
 </FrameLayout>
