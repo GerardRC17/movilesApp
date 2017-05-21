@@ -102,7 +102,8 @@ public class americano extends Fragment {
         View view = inflater.inflate(R.layout.fragment_americano, container, false);
 
         pb = (ProgressBar)view.findViewById(R.id.pbLoading);
-        setLoadingThread();
+        Thread tr = setLoadingThread();
+        tr.start();
         return view;
     }
 
@@ -145,81 +146,59 @@ public class americano extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-    /*public void getData(String id, int type)
+    private Thread setLoadingThread()
     {
-        if (id == null)
-            id = "null";
-
-        final String value = id;
-        final int tp = type;
         Thread tr = new Thread()
         {
             @Override
             public void run()
             {
-                final Service service = new Service();
-                final String result = service.getEvent(value, tp);
-                Log.d("Resultado", String.valueOf(result));
-
+                try
+                {
+                    events = service.getData(getActivity().getApplicationContext(), null, 1);
+                    Log.d("Eventos encontrados", String.valueOf(events.size()));
+                }
+                catch (Exception ex)
+                {
+                    Log.d("Thread tr", "Ha ocurrido un error al intentar cargar los datos");
+                    Log.e("Error Thread", ex.getMessage());
+                }
                 getActivity().runOnUiThread(new Runnable()
                 {
                     @Override
                     public void run()
                     {
-                        if(result != null)
+                        pb.setVisibility(View.GONE);
+                        try
                         {
-                            boolean r = service.isReqEmpty(result);
-                            if (r == true)
+                            if(events != null)
                             {
-                                Log.i("Encontró valores", String.valueOf(r));
-                                //txvResult.setText("Exito");
-                                List<Event> events = service.getEventsList(result);
+                                Toast.makeText(getActivity().getApplicationContext(),
+                                        String.valueOf(events.size()), Toast.LENGTH_SHORT).show();
+                                // Aquí va el código para cargar la lista
 
-                                if (events != null)
-                                {
-                                    Toast.makeText(getActivity().getApplicationContext(), "Exito!", Toast.LENGTH_SHORT).show();
-                                    Toast.makeText(getActivity().getApplicationContext(), String.valueOf(events.size()), Toast.LENGTH_SHORT).show();
-                                } else
-                                {
-                                    Toast.makeText(getActivity().getApplicationContext(), "No se encontraron datos", Toast.LENGTH_SHORT).show();
-                                    Toast.makeText(getActivity().getApplicationContext(), String.valueOf(events.size()), Toast.LENGTH_SHORT).show();
-                                }
                             }
                             else
-                                Toast.makeText(getActivity().getApplicationContext(), "The request is Empty", Toast.LENGTH_SHORT).show();
-
-                            Log.d("D", result.toString());
-                        }
-                        else
+                            {
+                                Toast.makeText(getActivity().getApplicationContext(),
+                                        "No se encontraron datos", Toast.LENGTH_SHORT).show();
+                            }
+                        }catch (Exception ex)
                         {
-                            Log.e("Ha habido un problema", "Resultado es nulo");
-                            Toast.makeText(getActivity().getApplicationContext(), "No hay conexión con el servico", Toast.LENGTH_LONG).show();
+                            String msg = "";
+                            if(events == null)
+                                msg = "Ha habido un problema. Verifica tu conexión a internet";
+                            else
+                                msg = "Ha habido un problema";
+
+                            Toast.makeText(getActivity().getApplicationContext(),
+                                    msg, Toast.LENGTH_LONG).show();
+                            Log.e("Mensaje de error", ex.getMessage());
                         }
                     }
                 });
             }
         };
-        tr.start();
-    }*/
-
-    private void setLoadingThread()
-    {
-        Thread tr = new Thread()
-        {
-            @Override
-            public void run()
-            {
-                getActivity().runOnUiThread(new Runnable()
-                {
-                    @Override
-                    public void run()
-                    {
-                        events = service.getData(getActivity().getApplicationContext(), null, 1);
-                        pb.setVisibility(View.GONE);
-                    }
-                });
-            }
-        };
-        tr.start();
+        return tr;
     }
 }

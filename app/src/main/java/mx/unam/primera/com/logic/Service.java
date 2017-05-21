@@ -67,7 +67,7 @@ public class Service
                 }
                 catch (Exception ex)
                 {
-                    Log.e("Tipo de Ev", "Error al agregar el tipo de evento");
+                    Log.w("Tipo de Ev", "Excepción al agregar el tipo de evento");
                 }
 
                 events.add(event);
@@ -124,21 +124,25 @@ public class Service
             DataAsync da = new DataAsync();
             da.execute(ev);
             json = da.get(4, TimeUnit.SECONDS);
+            if(da.getStatus() != AsyncTask.Status.FINISHED)
+                da.cancel(true);
             if(json.length() > 0)
-                Toast.makeText(context, "Exito :D", Toast.LENGTH_SHORT).show();
+                Log.d("Estado", "Exito :D");
+            else
+                Log.d("Estado", "No hay datos en la cadena JSON");
             Log.d("JSON ", json);
         }
         catch (TimeoutException tex)
         {
-            Toast.makeText(context, "Tiempo excedido al conectar", Toast.LENGTH_SHORT).show();
+            Log.e("TimeoutException", "Tiempo excedido al conectar");
         }
         catch (CancellationException cex)
         {
-            Toast.makeText(context, "Error al conectar con el servidor", Toast.LENGTH_SHORT).show();
+            Log.e("CancellationException", "Error al conectar con el servidor");
         }
         catch (Exception ex)
         {
-            Toast.makeText(context, "Error con tarea asíncrona", Toast.LENGTH_SHORT).show();
+            Log.e("Exception", "Error con tarea asíncrona");
             Log.e("Error tarea", ex.getMessage());
         }
         finally
@@ -149,12 +153,12 @@ public class Service
                     events = getEventsList(json);
                 else
                 {
-                    Toast.makeText(context, "No se encontraron datos", Toast.LENGTH_SHORT).show();
+                    Log.d("Datos JSON", "No se encontraron datos");
                     return null;
                 }
             } catch (Exception ex)
             {
-                Log.d("JSON", "Error al leer JSON/Agregar objetos a la lista de eventos");
+                Log.e("JSON Exception", "Error al leer JSON/Agregar objetos a la lista de eventos");
             }
             Log.d("Long lista de eventos", String.valueOf(events.size()));
 
@@ -175,7 +179,9 @@ public class Service
             if(da.getStatus() != AsyncTask.Status.FINISHED)
                 da.cancel(true);
             if(json.length() > 0)
-                Toast.makeText(context, "Exito :D", Toast.LENGTH_SHORT).show();
+                Log.d("Estado", "Exito :D");
+            else
+                Log.d("Estado", "No hay datos en la cadena JSON");
             Log.d("JSON ", json);
         }
         catch (TimeoutException tex)
@@ -199,7 +205,7 @@ public class Service
                     channelList = getChannelList(json);
                 else
                 {
-                    Toast.makeText(context, "No se encontraron datos", Toast.LENGTH_SHORT).show();
+                    Log.d("Datos JSON", "No se encontraron datos");
                     return null;
                 }
             } catch (Exception ex)
