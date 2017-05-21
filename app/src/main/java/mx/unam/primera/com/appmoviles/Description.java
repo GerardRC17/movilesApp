@@ -9,7 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +45,7 @@ public class Description extends Fragment {
     TextView txvTitle, txvSch, txvDetails;
     Event event;
     ImageView imgType;
+    ProgressBar pb;
 
     public Description() {
         // Required empty public constructor
@@ -83,10 +86,15 @@ public class Description extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_description, container, false);
         txvTitle = (TextView)view.findViewById(R.id.txvEventTitle);
+        txvTitle.setText("");
         txvSch = (TextView)view.findViewById(R.id.txvSchedule);
+        txvSch.setText("");
         txvDetails = (TextView)view.findViewById(R.id.txvDetails);
+        txvDetails.setText("");
         imgType = (ImageView)view.findViewById(R.id.imgType);
-        setLoadingThread("180204b4603");
+        pb = (ProgressBar)view.findViewById(R.id.pbProgress);
+        Thread tr = new Thread(setLoadingThread("1705051a12f"));
+        tr.start();
 
         return view;
     }
@@ -130,68 +138,86 @@ public class Description extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-    private void setLoadingThread(final String evId)
+    private Thread setLoadingThread(final String evId)
     {
         Thread tr = new Thread()
         {
             @Override
             public void run()
             {
+                try
+                {
+                    List<Event> temp = new ArrayList<Event>();
+                    temp = service.getData(getActivity().getApplicationContext(), evId, 0);
+                    event = temp.get(0);
+
+                    switch (event.getType().getId())
+                    {
+                        case 1:
+                            event.getType().setImageResource(R.drawable.americanogrande);
+                            break;
+                        case 2:
+                            event.getType().setImageResource(R.drawable.soccergrande);
+                            break;
+                        case 3:
+                            event.getType().setImageResource(R.drawable.basquetgrande);
+                            break;
+                        case 4:
+                            event.getType().setImageResource(R.drawable.baseballgrande);
+                            break;
+                        case 5:
+                            event.getType().setImageResource(R.drawable.musicalgrande);
+                            break;
+                        case 6:
+                            event.getType().setImageResource(R.drawable.premiogrande);
+                            break;
+                        default:
+                            break;
+                    }
+
+                    event.setChannelList(service.getData(getActivity().getApplicationContext(), evId));
+                    Log.d("Canales econtrados", String.valueOf(event.getChannelList().size()));
+                }
+                catch (Exception ex)
+                {
+                    Log.e("Obtención de datos", "No se pudieron obtener los datos");
+                    Log.e("Error", ex.getMessage());
+                }
+
                 getActivity().runOnUiThread(new Runnable()
                 {
                     @Override
                     public void run()
                     {
-                        List<Event> temp = new ArrayList<Event>();
                         try
                         {
-                            temp = service.getData(getActivity().getApplicationContext(), evId, 0);
-                            event = temp.get(0);
                             txvTitle.setText(event.getName().toString());
                             txvDetails.setText(event.getDescription().toString());
-
-
                             txvSch.setText(String.valueOf(android.text.format.DateFormat.format("dd MMMM yyyy hh:mm a",
                                     event.getDate())));
-
-                            switch (event.getType().getId())
-                            {
-                                case 1:
-                                    imgType.setImageResource(R.drawable.americanogrande);
-                                    break;
-                                case 2:
-                                    imgType.setImageResource(R.drawable.soccergrande);
-                                    break;
-                                case 3:
-                                    imgType.setImageResource(R.drawable.basquetgrande);
-                                    break;
-                                case 4:
-                                    imgType.setImageResource(R.drawable.baseballgrande);
-                                    break;
-                                case 5:
-                                    imgType.setImageResource(R.drawable.musicalgrande);
-                                    break;
-                                case 6:
-                                    imgType.setImageResource(R.drawable.premiogrande);
-                                    break;
-                                default:
-                                    break;
-                            }
-
-                            //pb.setVisibility(View.GONE);
-                            List<Channel> tempCh = service.getData(getActivity().getApplicationContext(), evId);
-                            Log.d("Canales econtrados", String.valueOf(tempCh.size()));
-                            event.setChannelList(tempCh);
+                            imgType.setImageResource(event.getType().getImageResource());
+                            pb.setVisibility(View.GONE);
                         }
                         catch (Exception ex)
                         {
-                            Log.e("Obtención de datos", "No se pudieron obtener los datos");
-                            Log.e("Error", ex.getMessage());
+                            pb.setVisibility(View.GONE);
+                            String msg = "";
+                            if(event == null)
+                                msg = "Ha habido un problema al obtener los datos." +
+                                        "Verifica tu conexión a internet.";
+                            else
+                                msg = "Error al asignar datos";
+
+                            Toast.makeText(getActivity().getApplicationContext(),
+                                    msg, Toast.LENGTH_LONG).show();
+                            Log.d("Obtención de datos", "Error al obtener datos");
+                            Log.e("Obtención de datos", ex.getMessage());
                         }
                     }
                 });
             }
         };
-        tr.start();
+
+        return tr;
     }
 }

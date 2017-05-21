@@ -8,8 +8,7 @@ public class EventType
 {
     private int  _id;
     private String _name;
-    //Seleccionar imagen
-    //private
+    private int _imgr;
 
     public int getId()
     {
@@ -27,5 +26,14 @@ public class EventType
     public void setName(String value)
     {
         this._name = value;
+    }
+
+    public int getImageResource()
+    {
+        return this._imgr;
+    }
+    public void setImageResource(int resource)
+    {
+        this._imgr = resource;
     }
 }
