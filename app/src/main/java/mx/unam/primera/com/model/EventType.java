@@ -9,6 +9,7 @@ public class EventType
     private int  _id;
     private String _name;
     private int _imgr;
+    private String _strColor;
 
     public int getId()
     {
@@ -35,5 +36,14 @@ public class EventType
     public void setImageResource(int resource)
     {
         this._imgr = resource;
+    }
+
+    public String getColorHex()
+    {
+        return this._strColor;
+    }
+    public void setColorHex(String value)
+    {
+        this._strColor = value;
     }
 }
