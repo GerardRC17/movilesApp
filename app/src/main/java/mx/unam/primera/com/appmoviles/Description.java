@@ -1,6 +1,8 @@
 package mx.unam.primera.com.appmoviles;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -46,6 +49,8 @@ public class Description extends Fragment {
     Event event;
     ImageView imgType;
     ProgressBar pb;
+    Thread tr;
+    FrameLayout flBasicInfo;
 
     public Description() {
         // Required empty public constructor
@@ -93,8 +98,19 @@ public class Description extends Fragment {
         txvDetails.setText("");
         imgType = (ImageView)view.findViewById(R.id.imgType);
         pb = (ProgressBar)view.findViewById(R.id.pbProgress);
-        Thread tr = new Thread(setLoadingThread("1705051a12f"));
-        tr.start();
+        flBasicInfo = (FrameLayout)view.findViewById(R.id.flBasicInfo);
+
+        try
+        {
+            //1705051a12f Champions
+            //170813a79d9 Superbowl
+            //1606158cfbb Baseball
+            tr = new Thread(setLoadingThread("170813a79d9"));
+            tr.start();
+        } catch (Exception ex)
+        {
+            Log.d("OnCreateView", "Error al iniciar el nuevo hilo");
+        }
 
         return view;
     }
@@ -114,6 +130,23 @@ public class Description extends Fragment {
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    @Override
+    public void onDestroyView()
+    {
+        super.onDestroyView();
+        if(tr.isAlive())
+        {
+            try
+            {
+                tr.wait();
+                Log.w("Tr join", "Se espero al hilo " + tr.getName());
+            } catch (Exception ex)
+            {
+                Log.d("Tr wait", "Hilo interrumpido");
+            }
         }
     }
 
@@ -138,9 +171,9 @@ public class Description extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-    private Thread setLoadingThread(final String evId)
+    private Runnable setLoadingThread(final String evId)
     {
-        Thread tr = new Thread()
+        Runnable rn = new Runnable()
         {
             @Override
             public void run()
@@ -154,22 +187,28 @@ public class Description extends Fragment {
                     switch (event.getType().getId())
                     {
                         case 1:
-                            event.getType().setImageResource(R.drawable.americanogrande);
+                            event.getType().setImageResource(R.drawable.americanogrande_rect);
+                            event.getType().setColorHex("555EA7");
                             break;
                         case 2:
-                            event.getType().setImageResource(R.drawable.soccergrande);
+                            event.getType().setImageResource(R.drawable.soccergrande_rect);
+                            event.getType().setColorHex("469234");
                             break;
                         case 3:
-                            event.getType().setImageResource(R.drawable.basquetgrande);
+                            event.getType().setImageResource(R.drawable.basquetgrande_rect);
+                            event.getType().setColorHex("E56C0C");
                             break;
                         case 4:
-                            event.getType().setImageResource(R.drawable.baseballgrande);
+                            event.getType().setImageResource(R.drawable.baseballgrande_rect);
+                            event.getType().setColorHex("E52420");
                             break;
                         case 5:
-                            event.getType().setImageResource(R.drawable.musicalgrande);
+                            event.getType().setImageResource(R.drawable.musicagrande_rect);
+                            event.getType().setColorHex("41BAC1");
                             break;
                         case 6:
-                            event.getType().setImageResource(R.drawable.premiogrande);
+                            event.getType().setImageResource(R.drawable.premiosgrande_rect);
+                            event.getType().setColorHex("D1C103");
                             break;
                         default:
                             break;
@@ -196,6 +235,7 @@ public class Description extends Fragment {
                             txvSch.setText(String.valueOf(android.text.format.DateFormat.format("dd MMMM yyyy hh:mm a",
                                     event.getDate())));
                             imgType.setImageResource(event.getType().getImageResource());
+                            flBasicInfo.setBackgroundColor(Color.parseColor("#" + event.getType().getColorHex()));
                             pb.setVisibility(View.GONE);
                         }
                         catch (Exception ex)
@@ -218,6 +258,6 @@ public class Description extends Fragment {
             }
         };
 
-        return tr;
+        return rn;
     }
 }
