@@ -191,6 +191,7 @@ public class americano extends Fragment {
                                 // Aquí va el código para cargar la lista
                                 adapter = new EventAdapter(events);
                                 recycler.setAdapter(adapter);
+                                //recycler.setOnClickListener(adapter.);
                             }
                             else
                             {
