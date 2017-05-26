@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //// Easter Egg de Natalia
-        /*final MediaPlayer mediaPlayer;
+        final MediaPlayer mediaPlayer;
         mediaPlayer = MediaPlayer.create(this,R.raw.blaze);
         mediaPlayer.setLooping(false);
         mediaPlayer.setVolume(100,100);
@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity
         };
 
         Thread music = new Thread(rn);
-        music.start();*/
+        //music.start();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

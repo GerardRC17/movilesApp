@@ -30,6 +30,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import mx.unam.primera.com.adapter.EventAdapter;
 import mx.unam.primera.com.logic.Service;
 import mx.unam.primera.com.model.Event;
 
@@ -43,6 +44,10 @@ import mx.unam.primera.com.model.Event;
  * create an instance of this fragment.
  */
 public class americano extends Fragment {
+
+    private RecyclerView recycler;
+    private RecyclerView.Adapter adapter;
+    private RecyclerView.LayoutManager IManeger;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -59,7 +64,7 @@ public class americano extends Fragment {
 
     List<Event> events;
     Service service;
-    ProgressBar pb;
+    //ProgressBar pb;
 
     public americano() {
         // Required empty public constructor
@@ -86,6 +91,7 @@ public class americano extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -101,9 +107,16 @@ public class americano extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_americano, container, false);
 
-        pb = (ProgressBar)view.findViewById(R.id.pbLoading);
+        //pb = (ProgressBar)view.findViewById(R.id.pbLoading);
+        recycler =(RecyclerView) view.findViewById(R.id.reciclador);
+        //recycler.setHasFixedSize(true);
+
+        IManeger = new LinearLayoutManager(getActivity().getApplicationContext());
+        recycler.setLayoutManager(IManeger);
+
         Thread tr = setLoadingThread();
         tr.start();
+
         return view;
     }
 
@@ -168,7 +181,7 @@ public class americano extends Fragment {
                     @Override
                     public void run()
                     {
-                        pb.setVisibility(View.GONE);
+                        //pb.setVisibility(View.GONE);
                         try
                         {
                             if(events != null)
@@ -176,7 +189,8 @@ public class americano extends Fragment {
                                 Toast.makeText(getActivity().getApplicationContext(),
                                         String.valueOf(events.size()), Toast.LENGTH_SHORT).show();
                                 // Aquí va el código para cargar la lista
-
+                                adapter = new EventAdapter(events);
+                                recycler.setAdapter(adapter);
                             }
                             else
                             {

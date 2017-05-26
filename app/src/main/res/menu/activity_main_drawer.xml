@@ -13,15 +13,12 @@
             android:title="Futbol Americano" />
         <item
             android:id="@+id/nav_soccer"
-            android:icon="@drawable/soccer"
             android:title="Futbol Soccer" />
         <item
             android:id="@+id/nav_bascket"
-            android:icon="@drawable/bascket"
             android:title="Basketball" />
         <item
             android:id="@+id/nav_basebaññ"
-             android:icon="@drawable/baseball"
             android:title="Baseball" />
            </menu>
         </item>
@@ -31,11 +28,9 @@
         <menu>
             <item
                 android:id="@+id/nav_conciertos"
-                android:icon="@drawable/musica"
                 android:title="Conciertos" />
             <item
                 android:id="@+id/nav_event"
-                android:icon="@drawable/especiales"
                 android:title="Eventos" />
 
             <item
