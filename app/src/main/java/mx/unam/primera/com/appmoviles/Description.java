@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import mx.unam.primera.com.adapter.ChannelAdapter;
 import mx.unam.primera.com.logic.Service;
 import mx.unam.primera.com.model.Channel;
 import mx.unam.primera.com.model.Event;
@@ -51,6 +53,7 @@ public class Description extends Fragment {
     ProgressBar pb;
     Thread tr;
     FrameLayout flBasicInfo;
+    ListView lvChannelList;
 
     public Description() {
         // Required empty public constructor
@@ -99,6 +102,7 @@ public class Description extends Fragment {
         imgType = (ImageView)view.findViewById(R.id.imgType);
         pb = (ProgressBar)view.findViewById(R.id.pbProgress);
         flBasicInfo = (FrameLayout)view.findViewById(R.id.flBasicInfo);
+        lvChannelList = (ListView)view.findViewById(R.id.lvChannelList);
 
         try
         {
@@ -236,6 +240,11 @@ public class Description extends Fragment {
                                     event.getDate())));
                             imgType.setImageResource(event.getType().getImageResource());
                             flBasicInfo.setBackgroundColor(Color.parseColor("#" + event.getType().getColorHex()));
+
+                            ChannelAdapter ca = new ChannelAdapter(getActivity().getApplicationContext(),
+                                    event.getChannelList());
+                            lvChannelList.setAdapter(ca);
+
                             pb.setVisibility(View.GONE);
                         }
                         catch (Exception ex)

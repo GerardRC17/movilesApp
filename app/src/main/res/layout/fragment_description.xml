@@ -51,8 +51,7 @@
                     android:id="@+id/imgType"
                     android:layout_width="280dp"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="left"
-                    android:src="@drawable/soccergrande_rect" />
+                    android:layout_gravity="left" />
             </FrameLayout>
 
         <!-- Ya sea que sea ScrollView, ListView o parecidos-->
@@ -72,7 +71,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp">
+            android:layout_marginRight="5dp"
+            android:background="@color/BLANCO">
 
         </ListView>
     </LinearLayout>
