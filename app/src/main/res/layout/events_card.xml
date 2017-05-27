@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="70dp"
+              app:cardCornerRadius="4dp"
+              app:cardElevation="2dp"
+              app:cardUseCompatPadding="true">
+
+    <RelativeLayout
+        android:id="@+id/rvEvent"
+        android:tag=""
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/Recycler_images"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="centerCrop"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"/>
+
+        <TextView
+            android:id="@+id/txtGeneral_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="large text"
+            android:textColor="@color/NEGRO"
+            android:layout_toRightOf="@id/Recycler_images"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:textSize="18dp"/>
+
+
+
+    </RelativeLayout>
+</android.support.v7.widget.CardView>
