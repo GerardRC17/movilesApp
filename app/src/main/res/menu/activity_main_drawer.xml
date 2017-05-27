@@ -3,23 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <group android:checkableBehavior="single">
+
         <item android:title="Deportes...">
             <menu>
         <item
             android:id="@+id/nav_americano"
-            android:icon="@drawable/americano3"
+            android:icon="@drawable/h"
+
             android:title="Futbol Americano" />
         <item
             android:id="@+id/nav_soccer"
-            android:icon="@drawable/soccer"
             android:title="Futbol Soccer" />
         <item
             android:id="@+id/nav_bascket"
-            android:icon="@drawable/bascket"
             android:title="Basketball" />
         <item
             android:id="@+id/nav_basebaññ"
-             android:icon="@drawable/baseball"
             android:title="Baseball" />
            </menu>
         </item>
@@ -29,12 +28,15 @@
         <menu>
             <item
                 android:id="@+id/nav_conciertos"
-                android:icon="@drawable/musica"
                 android:title="Conciertos" />
             <item
                 android:id="@+id/nav_event"
-                android:icon="@drawable/especiales"
                 android:title="Eventos" />
+
+            <item
+                android:id="@+id/nav_fav"
+                android:icon="@drawable/ic_favorite_border_black_48dp"
+                android:title="Favoritos"/>
         </menu>
     </item>
 

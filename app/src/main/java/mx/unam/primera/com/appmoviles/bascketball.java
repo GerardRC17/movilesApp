@@ -4,9 +4,17 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import mx.unam.primera.com.logic.Service;
+import mx.unam.primera.com.model.Event;
 
 
 /**
@@ -26,6 +34,9 @@ public class bascketball extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    List<Event> events;
+    Service service;
 
     private OnFragmentInteractionListener mListener;
 
@@ -58,13 +69,19 @@ public class bascketball extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        service = new Service();
+        events = new ArrayList<>();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_bascketball, container, false);
+        View view = inflater.inflate(R.layout.fragment_especiales, container, false);
+        Thread tr = setLoadingThread();
+        tr.start();
+
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -104,5 +121,61 @@ public class bascketball extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    private Thread setLoadingThread()
+    {
+        Thread tr = new Thread()
+        {
+            @Override
+            public void run()
+            {
+                try
+                {
+                    events = service.getData(getActivity().getApplicationContext(), null, 3);
+                    Log.d("Eventos encontrados", String.valueOf(events.size()));
+                }
+                catch (Exception ex)
+                {
+                    Log.d("Thread tr", "Ha ocurrido un error al intentar cargar los datos");
+                    Log.e("Error Thread", ex.getMessage());
+                }
+                getActivity().runOnUiThread(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        //pb.setVisibility(View.GONE);
+                        try
+                        {
+                            if(events != null)
+                            {
+                                Toast.makeText(getActivity().getApplicationContext(),
+                                        String.valueOf(events.size()), Toast.LENGTH_SHORT).show();
+                                // Aquí va el código para cargar la lista
+
+                            }
+                            else
+                            {
+                                Toast.makeText(getActivity().getApplicationContext(),
+                                        "No se encontraron datos", Toast.LENGTH_SHORT).show();
+                            }
+                        }catch (Exception ex)
+                        {
+                            String msg = "";
+                            if(events == null)
+                                msg = "Ha habido un problema. Verifica tu conexión a internet";
+                            else
+                                msg = "Ha habido un problema";
+
+                            Toast.makeText(getActivity().getApplicationContext(),
+                                    msg, Toast.LENGTH_LONG).show();
+                            Log.e("Mensaje de error", ex.getMessage());
+                        }
+                    }
+                });
+            }
+        };
+        return tr;
     }
 }
