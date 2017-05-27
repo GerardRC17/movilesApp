@@ -45,6 +45,8 @@ import mx.unam.primera.com.model.Event;
  */
 public class americano extends Fragment {
 
+    //recicler para listas
+
     private RecyclerView recycler;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager IManeger;
@@ -91,6 +93,7 @@ public class americano extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);

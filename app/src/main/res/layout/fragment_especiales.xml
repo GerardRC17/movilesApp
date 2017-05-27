@@ -1,15 +1,13 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.RecyclerView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:id="@+id/reciclador"
     android:layout_height="match_parent"
+    android:padding="3dp"
+    android:scrollbars="vertical"
     tools:context="mx.unam.primera.com.appmoviles.especiales">
 
-    <!-- TODO: Update blank fragment layout -->
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Los oscares" />
 
-</FrameLayout>
+</android.support.v7.widget.RecyclerView>

@@ -79,7 +79,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
                 resource = R.drawable.americano2;
                 break;
             case 2:
-
+                resource = R.drawable.americano2;
                 break;
 
             default:

@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.os.Debug;
 import android.support.v4.app.Fragment;
 import android.support.v4.util.DebugUtils;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +20,7 @@ import java.util.concurrent.CancellationException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
+import mx.unam.primera.com.adapter.EventAdapter;
 import mx.unam.primera.com.logic.DataAsync;
 import mx.unam.primera.com.logic.Service;
 import mx.unam.primera.com.model.Event;
@@ -32,6 +35,9 @@ import mx.unam.primera.com.model.Event;
  * create an instance of this fragment.
  */
 public class soccer extends Fragment {
+    private RecyclerView recycler;
+    private RecyclerView.Adapter adapter;
+    private RecyclerView.LayoutManager IManeger;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -85,6 +91,12 @@ public class soccer extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_soccer, container, false);
+
+        recycler =(RecyclerView) view.findViewById(R.id.reciclador);
+        //recycler.setHasFixedSize(true);
+
+        IManeger = new LinearLayoutManager(getActivity().getApplicationContext());
+        recycler.setLayoutManager(IManeger);
         Thread tr = setLoadingThread();
         tr.start();
 
@@ -160,6 +172,8 @@ public class soccer extends Fragment {
                                 Toast.makeText(getActivity().getApplicationContext(),
                                         String.valueOf(events.size()), Toast.LENGTH_SHORT).show();
                                 // Aquí va el código para cargar la lista
+                                adapter = new EventAdapter(events);
+                                recycler.setAdapter(adapter);
 
                             }
                             else

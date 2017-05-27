@@ -23,31 +23,36 @@ import mx.unam.primera.com.model.Event;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link conciertos.OnFragmentInteractionListener} interface
+ * {@link AllEvents.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link conciertos#newInstance} factory method to
+ * Use the {@link AllEvents#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class conciertos extends Fragment {
+public class AllEvents extends Fragment {
+    //recicler para listas
 
     private RecyclerView recycler;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager IManeger;
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+    RecyclerView rv;
+
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
-    private OnFragmentInteractionListener mListener;
+    private americano.OnFragmentInteractionListener mListener;
 
     List<Event> events;
     Service service;
+    //ProgressBar pb;
 
-    public conciertos() {
+    public AllEvents() {
         // Required empty public constructor
     }
 
@@ -57,11 +62,11 @@ public class conciertos extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment conciertos.
+     * @return A new instance of fragment americano.
      */
     // TODO: Rename and change types and number of parameters
-    public static conciertos newInstance(String param1, String param2) {
-        conciertos fragment = new conciertos();
+    public static americano newInstance(String param1, String param2) {
+        americano fragment = new americano();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -72,6 +77,8 @@ public class conciertos extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -85,7 +92,9 @@ public class conciertos extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_conciertos, container, false);
+        View view = inflater.inflate(R.layout.fragment_all_events, container, false);
+
+        //pb = (ProgressBar)view.findViewById(R.id.pbLoading);
         recycler =(RecyclerView) view.findViewById(R.id.reciclador);
         //recycler.setHasFixedSize(true);
 
@@ -108,8 +117,8 @@ public class conciertos extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+        if (context instanceof americano.OnFragmentInteractionListener) {
+            mListener = (americano.OnFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -146,7 +155,7 @@ public class conciertos extends Fragment {
             {
                 try
                 {
-                    events = service.getData(getActivity().getApplicationContext(), null, 5);
+                    events = service.getData(getActivity().getApplicationContext(), null, 1);
                     Log.d("Eventos encontrados", String.valueOf(events.size()));
                 }
                 catch (Exception ex)
@@ -169,7 +178,7 @@ public class conciertos extends Fragment {
                                 // Aquí va el código para cargar la lista
                                 adapter = new EventAdapter(events);
                                 recycler.setAdapter(adapter);
-
+                                //recycler.setOnClickListener(adapter.);
                             }
                             else
                             {
