@@ -8,13 +8,17 @@
     app:cardCornerRadius="4dp"
     app:cardElevation="2dp"
     app:cardUseCompatPadding="true"
-    app:cardBackgroundColor="@color/BLANCO">
+    app:cardBackgroundColor="@color/BLANCO"
+    android:requiresFadingEdge="horizontal|vertical"
+    android:fadeScrollbars="true">
 
     <RelativeLayout
         android:id="@+id/rvEvent"
         android:tag=""
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fadeScrollbars="true"
+        android:background="@drawable/recyclerview_item_shadow">
 
         <ImageView
             android:id="@+id/Recycler_images"
