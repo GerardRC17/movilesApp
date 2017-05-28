@@ -34,7 +34,10 @@ public class DataAsync extends AsyncTask<Event, Void, String>
                             "http://livebr.esy.es/scripts/service/rest/req_events.php?evId="
                             //"Dirección web"
                             + event.getId().toString()
-                            + "&tpId=" + String.valueOf(event.getType().getId());
+                            + "&tpId=";
+            if(event.getType().getId() > 0)
+                strUrl += String.valueOf(event.getType().getId());
+
             URL url = new URL(strUrl);
             HttpURLConnection connection = (HttpURLConnection)url.openConnection();
 

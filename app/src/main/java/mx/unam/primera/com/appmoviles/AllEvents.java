@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -40,17 +41,19 @@ public class AllEvents extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    RecyclerView rv;
+    private int eventType;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
-    private americano.OnFragmentInteractionListener mListener;
+    private OnFragmentInteractionListener mListener;
 
     List<Event> events;
     Service service;
-    //ProgressBar pb;
+    ProgressBar pb;
+
+    Thread tr;
 
     public AllEvents() {
         // Required empty public constructor
@@ -62,11 +65,11 @@ public class AllEvents extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment americano.
+     * @return A new instance of fragment AllEvents.
      */
     // TODO: Rename and change types and number of parameters
-    public static americano newInstance(String param1, String param2) {
-        americano fragment = new americano();
+    public static AllEvents newInstance(String param1, String param2) {
+        AllEvents fragment = new AllEvents();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -86,6 +89,10 @@ public class AllEvents extends Fragment {
 
         service = new Service();
         events = new ArrayList<>();
+
+        eventType = Integer.parseInt(String.valueOf(
+                getArguments().getSerializable("EventType")
+        ));
     }
 
     @Override
@@ -94,14 +101,13 @@ public class AllEvents extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_all_events, container, false);
 
-        //pb = (ProgressBar)view.findViewById(R.id.pbLoading);
+        pb = (ProgressBar)view.findViewById(R.id.pbLoading);
         recycler =(RecyclerView) view.findViewById(R.id.reciclador);
-        //recycler.setHasFixedSize(true);
 
         IManeger = new LinearLayoutManager(getActivity().getApplicationContext());
         recycler.setLayoutManager(IManeger);
 
-        Thread tr = setLoadingThread();
+        tr = setLoadingThread();
         tr.start();
 
         return view;
@@ -117,11 +123,28 @@ public class AllEvents extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof americano.OnFragmentInteractionListener) {
-            mListener = (americano.OnFragmentInteractionListener) context;
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    @Override
+    public void onDestroyView()
+    {
+        super.onDestroyView();
+        if(tr.isAlive())
+        {
+            try
+            {
+                tr.wait();
+                Log.w("Tr join", "Se espero al hilo " + tr.getName());
+            } catch (Exception ex)
+            {
+                Log.d("Tr wait", "Hilo interrumpido");
+            }
         }
     }
 
@@ -155,7 +178,7 @@ public class AllEvents extends Fragment {
             {
                 try
                 {
-                    events = service.getData(getActivity().getApplicationContext(), null, 1);
+                    events = service.getData(getActivity().getApplicationContext(), null, eventType);
                     Log.d("Eventos encontrados", String.valueOf(events.size()));
                 }
                 catch (Exception ex)
@@ -168,7 +191,7 @@ public class AllEvents extends Fragment {
                     @Override
                     public void run()
                     {
-                        //pb.setVisibility(View.GONE);
+                        pb.setVisibility(View.GONE);
                         try
                         {
                             if(events != null)

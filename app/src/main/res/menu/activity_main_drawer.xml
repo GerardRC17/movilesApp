@@ -2,14 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <group android:checkableBehavior="single">
+    <item
+        android:id="@+id/nav_all"
+        android:title="Todos" />
 
-        <item android:title="Deportes...">
+    <item android:title="Deportes...">
             <menu>
         <item
             android:id="@+id/nav_americano"
-            android:icon="@drawable/h"
-
             android:title="Futbol Americano" />
         <item
             android:id="@+id/nav_soccer"
@@ -21,8 +21,7 @@
             android:id="@+id/nav_basebaññ"
             android:title="Baseball" />
            </menu>
-        </item>
-    </group>
+    </item>
 
     <item android:title="Especiales...">
         <menu>
@@ -31,11 +30,10 @@
                 android:title="Conciertos" />
             <item
                 android:id="@+id/nav_event"
-                android:title="Eventos" />
+                android:title="Eventos especiales" />
 
             <item
                 android:id="@+id/nav_fav"
-                android:icon="@drawable/ic_favorite_border_black_48dp"
                 android:title="Favoritos"/>
         </menu>
     </item>

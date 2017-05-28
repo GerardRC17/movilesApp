@@ -96,7 +96,6 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
             public void onClick(View v)
             {
                 Toast.makeText(v.getContext(), String.valueOf(v.getTag()),Toast.LENGTH_SHORT).show();
-                //fragment=new americano();
                 //fragmentosSelec=true;
                 Fragment fragment = new Description();
                 String id = String.valueOf(v.getTag());
