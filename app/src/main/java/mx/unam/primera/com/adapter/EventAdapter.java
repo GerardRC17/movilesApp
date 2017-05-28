@@ -1,6 +1,7 @@
 package mx.unam.primera.com.adapter;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mx.unam.primera.com.appmoviles.Description;
+import mx.unam.primera.com.appmoviles.MainActivity;
 import mx.unam.primera.com.appmoviles.R;
 import mx.unam.primera.com.model.Event;
 
@@ -32,14 +34,15 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
     public static class EventViewHolder extends RecyclerView.ViewHolder
     {
         public ImageView imagen;
-        public TextView general_description;
+        public TextView txvTitle, txvDescription;
         public RelativeLayout rvEvent;
 
         public EventViewHolder(View v)
         {
             super(v);
             imagen = (ImageView)v.findViewById(R.id.Recycler_images);
-            general_description =(TextView)v.findViewById(R.id.txtGeneral_description);
+            txvTitle =(TextView)v.findViewById(R.id.txvTitle);
+            txvDescription = (TextView)v.findViewById(R.id.txvDescription);
             rvEvent = (RelativeLayout)v.findViewById(R.id.rvEvent);
         }
 
@@ -104,7 +107,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         }
 
         viewHolder.imagen.setImageResource(resource);
-        viewHolder.general_description.setText(_events.get(i).getName());
+        viewHolder.txvTitle.setText(_events.get(i).getName());
+        viewHolder.txvDescription.setText(_events.get(i).getDescription());
         viewHolder.rvEvent.setTag(_events.get(i).getId());
         viewHolder.rvEvent.setOnClickListener(new View.OnClickListener()
         {
@@ -112,12 +116,33 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
             public void onClick(View v)
             {
                 Toast.makeText(v.getContext(), String.valueOf(v.getTag()),Toast.LENGTH_SHORT).show();
-                //fragmentosSelec=true;
-                Fragment fragment = new Description();
                 String id = String.valueOf(v.getTag());
-                //fragment.
+                navigate(v, id);
             }
         });
+    }
+
+    private void navigate(View v, String id)
+    {
+        Fragment fragment = new Description();
+        Bundle args = new Bundle();
+
+        args.putSerializable("id", id);
+        fragment.setArguments(args);
+        switchContent(R.id.principal, fragment, v);
+    }
+
+    private void switchContent(int fragmentId, Fragment fragment, View v)
+    {
+        if(v.getContext() == null)
+            return;
+
+        if(v.getContext() instanceof MainActivity)
+        {
+            MainActivity main = (MainActivity)v.getContext();
+            Fragment frag = fragment;
+            main.navigate(frag);
+        }
     }
 
 }

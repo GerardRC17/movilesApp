@@ -164,6 +164,14 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    public void navigate(Fragment frag)
+    {
+        getSupportFragmentManager().beginTransaction().replace(R.id.principal,frag).commit();
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+    }
+
     @Override
     public void onFragmentInteraction(Uri uri) {
 

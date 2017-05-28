@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -29,7 +30,8 @@ import mx.unam.primera.com.model.Event;
  * Use the {@link AllEvents#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AllEvents extends Fragment {
+public class AllEvents extends Fragment implements SwipeRefreshLayout.OnRefreshListener
+{
     //recicler para listas
 
     private RecyclerView recycler;
@@ -52,6 +54,7 @@ public class AllEvents extends Fragment {
     List<Event> events;
     Service service;
     ProgressBar pb;
+    SwipeRefreshLayout srlRefresh;
 
     Thread tr;
 
@@ -108,6 +111,9 @@ public class AllEvents extends Fragment {
         tr = setLoadingThread();
         tr.start();
 
+        srlRefresh = (SwipeRefreshLayout)view.findViewById(R.id.srlRefresh);
+        srlRefresh.setOnRefreshListener(this);
+
         return view;
     }
 
@@ -152,6 +158,13 @@ public class AllEvents extends Fragment {
         mListener = null;
     }
 
+    @Override
+    public void onRefresh()
+    {
+        tr = setLoadingThread();
+        tr.start();
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -190,6 +203,7 @@ public class AllEvents extends Fragment {
                     public void run()
                     {
                         pb.setVisibility(View.GONE);
+                        srlRefresh.setRefreshing(false);
                         try
                         {
                             if(events != null)

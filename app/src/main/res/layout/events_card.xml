@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="70dp"
-              app:cardCornerRadius="4dp"
-              app:cardElevation="2dp"
-              app:cardUseCompatPadding="true">
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    app:cardCornerRadius="4dp"
+    app:cardElevation="2dp"
+    app:cardUseCompatPadding="true"
+    app:cardBackgroundColor="@color/BLANCO">
 
     <RelativeLayout
         android:id="@+id/rvEvent"
@@ -21,20 +23,38 @@
             android:scaleType="centerCrop"
             android:layout_centerVertical="true"
             android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"/>
+            android:layout_marginRight="5dp"
+            android:elevation="5dp"/>
 
-        <TextView
-            android:id="@+id/txtGeneral_description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="large text"
-            android:textColor="@color/NEGRO"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
             android:layout_toRightOf="@id/Recycler_images"
-            android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
-            android:textSize="18dp"/>
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_centerVertical="true">
+            <TextView
+                android:id="@+id/txvTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="large text"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textColor="@color/NEGRO"
+                android:textSize="18dp" />
 
+            <TextView
+                android:id="@+id/txvDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Descripcion"
+                android:maxLines="1"
+                android:ellipsize="marquee"
+                android:gravity="bottom" />
 
-
+        </LinearLayout>
     </RelativeLayout>
 </android.support.v7.widget.CardView>

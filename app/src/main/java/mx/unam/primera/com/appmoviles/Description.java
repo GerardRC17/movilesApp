@@ -44,6 +44,8 @@ public class Description extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    String eventId;
+
     private OnFragmentInteractionListener mListener;
 
     Service service;
@@ -86,6 +88,7 @@ public class Description extends Fragment {
         }
 
         service = new Service();
+        eventId = String.valueOf(getArguments().getSerializable("id"));
     }
 
     @Override
@@ -109,7 +112,7 @@ public class Description extends Fragment {
             //1705051a12f Champions
             //170813a79d9 Superbowl
             //1606158cfbb Baseball
-            tr = new Thread(setLoadingThread("170813a79d9"));
+            tr = new Thread(setLoadingThread(eventId));
             tr.start();
         } catch (Exception ex)
         {
