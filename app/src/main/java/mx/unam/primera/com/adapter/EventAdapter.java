@@ -76,14 +76,30 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         switch (_events.get(i).getType().getId())
         {
             case 1:
-                resource = R.drawable.americano2;
+                resource = R.drawable.americano;
                 break;
             case 2:
-                resource = R.drawable.americano2;
+                resource = R.drawable.soccer;
+                break;
+
+            case 3:
+                resource = R.drawable.basketball;
+                break;
+
+            case 4:
+                resource = R.drawable.baseball;
+                break;
+
+            case 5:
+                resource = R.drawable.musica;
+                break;
+
+            case 6:
+                resource = R.drawable.premios;
                 break;
 
             default:
-                resource = R.drawable.americano2;
+                resource = R.drawable.gen;
                 break;
         }
 

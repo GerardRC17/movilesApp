@@ -34,7 +34,7 @@ public class AllEvents extends Fragment {
 
     private RecyclerView recycler;
     private RecyclerView.Adapter adapter;
-    private RecyclerView.LayoutManager IManeger;
+    private RecyclerView.LayoutManager IManager;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -80,8 +80,6 @@ public class AllEvents extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -104,8 +102,8 @@ public class AllEvents extends Fragment {
         pb = (ProgressBar)view.findViewById(R.id.pbLoading);
         recycler =(RecyclerView) view.findViewById(R.id.reciclador);
 
-        IManeger = new LinearLayoutManager(getActivity().getApplicationContext());
-        recycler.setLayoutManager(IManeger);
+        IManager = new LinearLayoutManager(getActivity().getApplicationContext());
+        recycler.setLayoutManager(IManager);
 
         tr = setLoadingThread();
         tr.start();
@@ -196,12 +194,13 @@ public class AllEvents extends Fragment {
                         {
                             if(events != null)
                             {
-                                Toast.makeText(getActivity().getApplicationContext(),
-                                        String.valueOf(events.size()), Toast.LENGTH_SHORT).show();
-                                // Aquí va el código para cargar la lista
+                                if(events.size() == 0)
+                                {
+                                    Toast.makeText(getActivity().getApplicationContext(),
+                                        "No hay eventos resgistrados", Toast.LENGTH_SHORT).show();
+                                }
                                 adapter = new EventAdapter(events);
                                 recycler.setAdapter(adapter);
-                                //recycler.setOnClickListener(adapter.);
                             }
                             else
                             {

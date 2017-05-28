@@ -81,6 +81,8 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        navigate(R.id.nav_all);
     }
 
     @Override
@@ -112,7 +114,11 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        return navigate(id);
+    }
 
+    private boolean navigate(int id)
+    {
         fragment = null;
         fragment = new AllEvents();
         Bundle args = new Bundle();
@@ -142,7 +148,7 @@ public class MainActivity extends AppCompatActivity
                 break;
 
             case R.id.nav_event:
-                args.putSerializable("EventType", 7);
+                args.putSerializable("EventType", 6);
                 break;
 
             case R.id.nav_fav:
