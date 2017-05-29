@@ -1,10 +1,12 @@
 package mx.unam.primera.com.appmoviles;
 
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,16 +16,51 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.Toast;
+
+import org.json.JSONArray;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
+import static android.R.attr.onClick;
+import mx.unam.primera.com.logic.*;
+import mx.unam.primera.com.model.Event;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener,americano.OnFragmentInteractionListener,soccer.OnFragmentInteractionListener,
-         bascketball.OnFragmentInteractionListener,baseball.OnFragmentInteractionListener,conciertos.OnFragmentInteractionListener,
-           especiales.OnFragmentInteractionListener{
+        implements NavigationView.OnNavigationItemSelectedListener,
+        Description.OnFragmentInteractionListener, AllEvents.OnFragmentInteractionListener
+{
+
+    Fragment fragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //// Easter Egg de Natalia
+        final MediaPlayer mediaPlayer;
+        mediaPlayer = MediaPlayer.create(this,R.raw.blaze);
+        mediaPlayer.setLooping(false);
+        mediaPlayer.setVolume(100,100);
+
+        Runnable rn = new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                mediaPlayer.start();
+            }
+        };
+
+        Thread music = new Thread(rn);
+        //music.start();
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -44,6 +81,8 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        navigate(R.id.nav_all);
     }
 
     @Override
@@ -75,44 +114,55 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        return navigate(id);
+    }
 
-        Fragment fragment=null;
-        boolean fragmentosSelec=false;
+    private boolean navigate(int id)
+    {
+        fragment = null;
+        fragment = new AllEvents();
+        Bundle args = new Bundle();
 
+        switch (id)
+        {
+            case R.id.nav_all:
+                args.putSerializable("EventType", -1);
+                break;
+            case R.id.nav_americano:
+                args.putSerializable("EventType", 1);
+                break;
+            case R.id.nav_soccer:
+                args.putSerializable("EventType", 2);
+                break;
 
-        if (id == R.id.nav_americano) {
-            fragment=new americano();
-            fragmentosSelec=true;
+            case R.id.nav_bascket:
+                args.putSerializable("EventType", 3);
+                break;
 
-        } else if (id == R.id.nav_soccer) {
-            fragment=new soccer();
-            fragmentosSelec=true;
+            case R.id.nav_basebaññ:
+                args.putSerializable("EventType", 4);
+                break;
 
-        } else if (id == R.id.nav_bascket) {
-            fragment=new bascketball();
-            fragmentosSelec=true;
+            case R.id.nav_conciertos:
+                args.putSerializable("EventType", 5);
+                break;
 
-        } else if (id == R.id.nav_basebaññ) {
-            fragment=new baseball();
-            fragmentosSelec=true;
-
-        } else if (id == R.id.nav_conciertos) {
-            fragment=new conciertos();
-            fragmentosSelec=true;
-
-        } else if (id == R.id.nav_event) {
-            fragment=new especiales();
-            fragmentosSelec=true;
-
+            case R.id.nav_event:
+                args.putSerializable("EventType", 6);
+                break;
         }
+        fragment.setArguments(args);
 
-        if (fragmentosSelec){
-            getSupportFragmentManager().beginTransaction().replace(R.id.principal,fragment).commit();
-        }
+        navigate(fragment);
+        return true;
+    }
+
+    public void navigate(Fragment frag)
+    {
+        getSupportFragmentManager().beginTransaction().replace(R.id.principal,frag).commit();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
-        return true;
     }
 
     @Override

@@ -1,0 +1,29 @@
+<android.support.v4.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/srlRefresh"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="mx.unam.primera.com.appmoviles.AllEvents">
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:id="@+id/reciclador"
+            android:layout_height="match_parent"
+            android:padding="3dp"
+            android:scrollbars="vertical">
+
+        </android.support.v7.widget.RecyclerView>
+
+        <ProgressBar
+            android:id="@+id/pbLoading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"/>
+
+    </FrameLayout>
+</android.support.v4.widget.SwipeRefreshLayout>
