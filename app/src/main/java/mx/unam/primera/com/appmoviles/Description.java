@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -34,7 +35,8 @@ import mx.unam.primera.com.model.Event;
  * Use the {@link Description#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Description extends Fragment {
+public class Description extends Fragment
+{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -56,6 +58,7 @@ public class Description extends Fragment {
     Thread tr;
     FrameLayout flBasicInfo;
     ListView lvChannelList;
+    FloatingActionButton fbtnAddToCalendar;
 
     public Description() {
         // Required empty public constructor
@@ -106,12 +109,18 @@ public class Description extends Fragment {
         pb = (ProgressBar)view.findViewById(R.id.pbProgress);
         flBasicInfo = (FrameLayout)view.findViewById(R.id.flBasicInfo);
         lvChannelList = (ListView)view.findViewById(R.id.lvChannelList);
+        fbtnAddToCalendar = (FloatingActionButton)view.findViewById(R.id.fbtnAddToCalendar);
+        fbtnAddToCalendar.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Toast.makeText(v.getContext(), "Agregar a calendario", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         try
         {
-            //1705051a12f Champions
-            //170813a79d9 Superbowl
-            //1606158cfbb Baseball
             tr = new Thread(setLoadingThread(eventId));
             tr.start();
         } catch (Exception ex)

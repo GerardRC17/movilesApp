@@ -1,8 +1,9 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="mx.unam.primera.com.appmoviles.Description">
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             tools:context="mx.unam.primera.com.appmoviles.Description">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -27,6 +28,16 @@
                     android:orientation="vertical"
                     android:layout_gravity="right|bottom"
                     android:elevation="2dp">
+
+                    <TextView
+                        android:id="@+id/txvSchedule"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:elevation="6dp"
+                        android:text="Horario"
+                        android:textAlignment="textEnd"
+                        android:textSize="20dp"/>
+
                     <TextView
                         android:id="@+id/txvEventTitle"
                         android:layout_width="match_parent"
@@ -37,14 +48,6 @@
                         android:textAlignment="viewEnd"
                         android:elevation="2dp"/>
 
-                    <TextView
-                        android:id="@+id/txvSchedule"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textAlignment="textEnd"
-                        android:text="Horario"
-                        android:textSize="20dp"
-                        android:elevation="6dp"/>
                 </LinearLayout>
 
                 <ImageView
@@ -76,6 +79,16 @@
 
         </ListView>
     </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fbtnAddToCalendar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        app:fabSize="auto"
+        app:rippleColor="@color/BLANCO"
+        android:src="@android:drawable/ic_menu_my_calendar"/>
 
     <ProgressBar
         android:id="@+id/pbProgress"

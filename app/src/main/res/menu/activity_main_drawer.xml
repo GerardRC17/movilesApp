@@ -31,10 +31,6 @@
             <item
                 android:id="@+id/nav_event"
                 android:title="Eventos especiales" />
-
-            <item
-                android:id="@+id/nav_fav"
-                android:title="Favoritos"/>
         </menu>
     </item>
 

@@ -150,10 +150,6 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_event:
                 args.putSerializable("EventType", 6);
                 break;
-
-            case R.id.nav_fav:
-                fragment = new Description();
-                break;
         }
         fragment.setArguments(args);
 
