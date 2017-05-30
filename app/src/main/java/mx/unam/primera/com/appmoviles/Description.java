@@ -31,7 +31,6 @@ import java.io.IOException;
 import java.util.Arrays;
 
 import mx.unam.primera.com.logic.*;
-import mx.unam.primera.com.logic.Calendar;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
@@ -56,6 +55,7 @@ import android.widget.Toast;
 
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import mx.unam.primera.com.adapter.ChannelAdapter;
@@ -95,7 +95,6 @@ public class Description extends Fragment
     FrameLayout flBasicInfo;
     ListView lvChannelList;
     FloatingActionButton fbtnAddToCalendar;
-    Calendar cal;
 
     public Description() {
         // Required empty public constructor
@@ -136,7 +135,6 @@ public class Description extends Fragment
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_description, container, false);
-        cal = new Calendar(view.getContext());
         txvTitle = (TextView)view.findViewById(R.id.txvEventTitle);
         txvTitle.setText("");
         txvSch = (TextView)view.findViewById(R.id.txvSchedule);
@@ -154,6 +152,7 @@ public class Description extends Fragment
             public void onClick(View v)
             {
                 Toast.makeText(v.getContext(), "Agregar a calendario", Toast.LENGTH_SHORT).show();
+                addToCalendar();
             }
         });
 
@@ -323,23 +322,26 @@ public class Description extends Fragment
         return rn;
     }
 
-    @Override
-    public void onActivityResult( int requestCode, int resultCode, Intent data)
-    {
-        super.onActivityResult(requestCode,resultCode,data);
-        switch(requestCode)
+
+
+    private void addToCalendar() {
+        try {
+            Calendar cale = Calendar.getInstance();
+            Intent intent = new Intent(Intent.ACTION_EDIT);
+            intent.setType("vnd.android.cursor.item/event");
+
+            intent.putExtra("beginTime", cale.getTimeInMillis());
+            intent.putExtra("allDay", true);
+            intent.putExtra("rrule", "FREQ=YEARLY");
+            intent.putExtra("endTime", cale.getTimeInMillis() + 60 * 60 * 1000);
+            intent.putExtra("title", "Este es un intento de prueba... Aguacate");
+            startActivity(intent);
+        }
+        catch(Exception ex)
         {
-            case rc:
-                if (resultCode != Activity.RESULT_OK)
-                {
-                    String message = "esta aplicacion requiere los servicios de google play";
-                    Log.i("onActivityResult", message);
-                    Toast.makeText(getActivity().getApplicationContext(), message,Toast.
-                                    LENGTH_SHORT).show();
-                }
-                else
-                    cal.get();
+            Toast.makeText(getContext(), "Ha habido un problema al agregar el evento al calendario",
+                    Toast.LENGTH_LONG).show();
+            Log.e("Add to calendar", ex.getMessage());
         }
     }
-
 }
