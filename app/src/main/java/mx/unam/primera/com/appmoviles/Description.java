@@ -1,5 +1,41 @@
 package mx.unam.primera.com.appmoviles;
 
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.api.client.extensions.android.http.AndroidHttp;
+import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
+import com.google.api.client.googleapis.extensions.android.gms.auth.GooglePlayServicesAvailabilityIOException;
+import com.google.api.client.googleapis.extensions.android.gms.auth.UserRecoverableAuthIOException;
+
+import com.google.api.client.http.HttpTransport;
+import com.google.api.client.json.JsonFactory;
+import com.google.api.client.json.jackson2.JacksonFactory;
+import com.google.api.client.util.ExponentialBackOff;
+
+import com.google.api.services.calendar.CalendarScopes;
+import com.google.api.client.util.DateTime;
+
+import com.google.api.services.calendar.model.*;
+
+import android.Manifest;
+import android.accounts.AccountManager;
+import android.app.Activity;
+import android.app.Dialog;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+
+import java.io.IOException;
+import java.util.Arrays;
+
+import mx.unam.primera.com.logic.*;
+import mx.unam.primera.com.logic.Calendar;
+import pub.devrel.easypermissions.AfterPermissionGranted;
+import pub.devrel.easypermissions.EasyPermissions;
+
+//
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -18,11 +54,11 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
 import mx.unam.primera.com.adapter.ChannelAdapter;
-import mx.unam.primera.com.logic.Service;
 import mx.unam.primera.com.model.Channel;
 import mx.unam.primera.com.model.Event;
 
@@ -59,6 +95,7 @@ public class Description extends Fragment
     FrameLayout flBasicInfo;
     ListView lvChannelList;
     FloatingActionButton fbtnAddToCalendar;
+    Calendar cal;
 
     public Description() {
         // Required empty public constructor
@@ -99,6 +136,7 @@ public class Description extends Fragment
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_description, container, false);
+        cal = new Calendar(view.getContext());
         txvTitle = (TextView)view.findViewById(R.id.txvEventTitle);
         txvTitle.setText("");
         txvSch = (TextView)view.findViewById(R.id.txvSchedule);
@@ -127,6 +165,9 @@ public class Description extends Fragment
         {
             Log.d("OnCreateView", "Error al iniciar el nuevo hilo");
         }
+
+
+
 
         return view;
     }
@@ -281,4 +322,24 @@ public class Description extends Fragment
 
         return rn;
     }
+
+    @Override
+    public void onActivityResult( int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode,resultCode,data);
+        switch(requestCode)
+        {
+            case rc:
+                if (resultCode != Activity.RESULT_OK)
+                {
+                    String message = "esta aplicacion requiere los servicios de google play";
+                    Log.i("onActivityResult", message);
+                    Toast.makeText(getActivity().getApplicationContext(), message,Toast.
+                                    LENGTH_SHORT).show();
+                }
+                else
+                    cal.get();
+        }
+    }
+
 }
