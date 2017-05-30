@@ -1,5 +1,7 @@
 package mx.unam.primera.com.appmoviles;
 
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -42,7 +44,13 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
+
+        if(!isTablet())
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        else
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         //// Easter Egg de Natalia
         final MediaPlayer mediaPlayer;
         mediaPlayer = MediaPlayer.create(this,R.raw.blaze);
@@ -83,6 +91,12 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         navigate(R.id.nav_all);
+    }
+
+    private boolean isTablet()
+    {
+        return (this.getResources().getConfiguration().screenLayout
+                & Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_LARGE;
     }
 
     @Override
