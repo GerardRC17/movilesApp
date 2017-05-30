@@ -253,6 +253,8 @@ public class Description extends Fragment
                             imgType.setImageResource(event.getType().getImageResource());
                             flBasicInfo.setBackgroundColor(Color.parseColor("#" + event.getType().getColorHex()));
 
+                            getActivity().setTitle("Detalles de evento");
+
                             ChannelAdapter ca = new ChannelAdapter(getActivity().getApplicationContext(),
                                     event.getChannelList());
                             lvChannelList.setAdapter(ca);
