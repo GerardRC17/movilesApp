@@ -1,5 +1,40 @@
 package mx.unam.primera.com.appmoviles;
 
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.api.client.extensions.android.http.AndroidHttp;
+import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
+import com.google.api.client.googleapis.extensions.android.gms.auth.GooglePlayServicesAvailabilityIOException;
+import com.google.api.client.googleapis.extensions.android.gms.auth.UserRecoverableAuthIOException;
+
+import com.google.api.client.http.HttpTransport;
+import com.google.api.client.json.JsonFactory;
+import com.google.api.client.json.jackson2.JacksonFactory;
+import com.google.api.client.util.ExponentialBackOff;
+
+import com.google.api.services.calendar.CalendarScopes;
+import com.google.api.client.util.DateTime;
+
+import com.google.api.services.calendar.model.*;
+
+import android.Manifest;
+import android.accounts.AccountManager;
+import android.app.Activity;
+import android.app.Dialog;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+
+import java.io.IOException;
+import java.util.Arrays;
+
+import mx.unam.primera.com.logic.*;
+import pub.devrel.easypermissions.AfterPermissionGranted;
+import pub.devrel.easypermissions.EasyPermissions;
+
+//
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -18,11 +53,12 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import mx.unam.primera.com.adapter.ChannelAdapter;
-import mx.unam.primera.com.logic.Service;
 import mx.unam.primera.com.model.Channel;
 import mx.unam.primera.com.model.Event;
 
@@ -116,6 +152,7 @@ public class Description extends Fragment
             public void onClick(View v)
             {
                 Toast.makeText(v.getContext(), "Agregar a calendario", Toast.LENGTH_SHORT).show();
+                addToCalendar();
             }
         });
 
@@ -127,6 +164,9 @@ public class Description extends Fragment
         {
             Log.d("OnCreateView", "Error al iniciar el nuevo hilo");
         }
+
+
+
 
         return view;
     }
@@ -282,5 +322,28 @@ public class Description extends Fragment
         };
 
         return rn;
+    }
+
+
+
+    private void addToCalendar() {
+        try {
+            Calendar cale = Calendar.getInstance();
+            Intent intent = new Intent(Intent.ACTION_EDIT);
+            intent.setType("vnd.android.cursor.item/event");
+
+            intent.putExtra("beginTime", cale.getTimeInMillis());
+            intent.putExtra("allDay", true);
+            intent.putExtra("rrule", "FREQ=YEARLY");
+            intent.putExtra("endTime", cale.getTimeInMillis() + 60 * 60 * 1000);
+            intent.putExtra("title", "Este es un intento de prueba... Aguacate");
+            startActivity(intent);
+        }
+        catch(Exception ex)
+        {
+            Toast.makeText(getContext(), "Ha habido un problema al agregar el evento al calendario",
+                    Toast.LENGTH_LONG).show();
+            Log.e("Add to calendar", ex.getMessage());
+        }
     }
 }
