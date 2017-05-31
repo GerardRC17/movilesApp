@@ -101,6 +101,7 @@ public class AllEvents extends Fragment implements SwipeRefreshLayout.OnRefreshL
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_all_events, container, false);
+        getActivity().setTitle(getTitle());
 
         pb = (ProgressBar)view.findViewById(R.id.pbLoading);
         recycler =(RecyclerView) view.findViewById(R.id.reciclador);
@@ -238,5 +239,38 @@ public class AllEvents extends Fragment implements SwipeRefreshLayout.OnRefreshL
             }
         };
         return tr;
+    }
+
+    private String getTitle()
+    {
+        String title = "Guia";
+        switch (eventType)
+        {
+            case -1:
+                title = "Mostrar todo";
+                break;
+            case 1:
+                title = "Futbol americano";
+                break;
+            case 2:
+                title = "Futbol soccer";
+                break;
+            case 3:
+                title = "Basquetbol";
+                break;
+            case 4:
+                title = "Baseball";
+                break;
+            case 5:
+                title = "Conciertos y musicales";
+                break;
+            case 6:
+                title = "Premios";
+                break;
+            default:
+                title = "Otros";
+                break;
+        }
+        return title;
     }
 }

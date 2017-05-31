@@ -1,13 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/principal"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/contenedor"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="mx.unam.primera.com.appmoviles.MainActivity"
     tools:showIn="@layout/app_bar_main">
 
+    <RelativeLayout
+        android:id="@+id/rLayoutEventList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/BLANCO">
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rLayoutEventDetails"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:background="@color/BLANCO">
+    </RelativeLayout>
 
 </RelativeLayout>
