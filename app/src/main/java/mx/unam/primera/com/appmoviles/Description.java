@@ -1,15 +1,19 @@
 package mx.unam.primera.com.appmoviles;
 
+import android.Manifest;
 import android.content.Intent;
 import mx.unam.primera.com.logic.*;
 //
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -118,8 +122,19 @@ public class Description extends Fragment
             @Override
             public void onClick(View v)
             {
-                Toast.makeText(v.getContext(), "Agregar a calendario", Toast.LENGTH_SHORT).show();
-                addToCalendar();
+                //Toast.makeText(v.getContext(), "Agregar a calendario", Toast.LENGTH_SHORT).show();
+                pb.setVisibility(View.VISIBLE);
+                if(setCalendarPermission())
+                {
+                    addToCalendar();
+                    pb.setVisibility(View.GONE);
+                }
+                else
+                {
+                    Toast.makeText(getActivity().getApplicationContext(),
+                            "Ha habido un problema al intentar agregar este evento a tu calendario",
+                            Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -291,8 +306,6 @@ public class Description extends Fragment
         return rn;
     }
 
-
-
     private void addToCalendar() {
         try {
             Calendar cale = Calendar.getInstance();
@@ -311,6 +324,35 @@ public class Description extends Fragment
             Toast.makeText(getContext(), "Ha habido un problema al agregar el evento al calendario",
                     Toast.LENGTH_LONG).show();
             Log.e("Add to calendar", ex.getMessage());
+        }
+    }
+
+    private boolean setCalendarPermission()
+    {
+        try
+        {
+            if(ContextCompat.checkSelfPermission(getActivity().getApplicationContext(),
+                            Manifest.permission.WRITE_CALENDAR) != PackageManager.PERMISSION_GRANTED)
+            {
+                if(ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+                        Manifest.permission.WRITE_CALENDAR))
+                {
+
+                } else {
+                    ActivityCompat.requestPermissions(getActivity(),
+                            new String[] {Manifest.permission.WRITE_CALENDAR}, 0x1);
+                }
+
+                return true;
+            }
+            else
+                return true;
+        }
+        catch (Exception ex)
+        {
+            Log.e("setCalendarPermission", "Ha habido un problema");
+            Log.e("Mensaje", ex.getMessage());
+            return false;
         }
     }
 }
