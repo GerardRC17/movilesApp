@@ -56,7 +56,10 @@ public class MainActivity extends AppCompatActivity
         if(!isTablet())
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         else
+        {
+            //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        }
         //// Easter Egg de Natalia
         final MediaPlayer mediaPlayer;
         mediaPlayer = MediaPlayer.create(this,R.raw.blaze);
