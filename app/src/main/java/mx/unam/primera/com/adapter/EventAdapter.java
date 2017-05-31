@@ -129,10 +129,10 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
 
         args.putSerializable("id", id);
         fragment.setArguments(args);
-        switchContent(R.id.principal, fragment, v);
+        switchContent(R.id.rLayoutEventDetails, fragment, v);
     }
 
-    private void switchContent(int fragmentId, Fragment fragment, View v)
+    private void switchContent(int replaced, Fragment fragment, View v)
     {
         if(v.getContext() == null)
             return;
@@ -141,7 +141,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         {
             MainActivity main = (MainActivity)v.getContext();
             Fragment frag = fragment;
-            main.navigate(frag);
+            main.navigate(replaced, frag);
         }
     }
 

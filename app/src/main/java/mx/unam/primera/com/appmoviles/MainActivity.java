@@ -19,6 +19,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -167,13 +168,19 @@ public class MainActivity extends AppCompatActivity
         }
         fragment.setArguments(args);
 
-        navigate(fragment);
+        navigate(R.id.rLayoutEventList, fragment);
         return true;
     }
 
-    public void navigate(Fragment frag)
+    public void navigate(int replaced, Fragment frag)
     {
-        getSupportFragmentManager().beginTransaction().replace(R.id.principal,frag).commit();
+        RelativeLayout rl = (RelativeLayout)findViewById(R.id.rLayoutEventDetails);
+        if(replaced == R.id.rLayoutEventList)
+            rl.setVisibility(View.GONE);
+        else
+            rl.setVisibility(View.VISIBLE);
+
+        getSupportFragmentManager().beginTransaction().replace(replaced,frag).commit();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
