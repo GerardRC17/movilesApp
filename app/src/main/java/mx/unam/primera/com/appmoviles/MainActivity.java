@@ -81,15 +81,6 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -100,7 +91,6 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         navigate(R.id.nav_all);
-
     }
 
     private boolean isTablet()
@@ -117,7 +107,6 @@ public class MainActivity extends AppCompatActivity
         }
         else
         {
-
             /*if(getFragmentManager().getBackStackEntryCount() > 2) {
                 getFragmentManager().popBackStack();
                 } else {
@@ -127,13 +116,12 @@ public class MainActivity extends AppCompatActivity
             RelativeLayout rl = (RelativeLayout) findViewById(R.id.rLayoutEventDetails);
             if (rl.getVisibility() == View.VISIBLE)
                 rl.setVisibility(View.GONE);
-            /*else
+            else
             {
                 try
                 {
-
                     if (history.size() > 0) {
-                        int _type = history.get(history.size() - 1);
+                        int _type = history.get(history.size() - 2);
                         int _id = 0;
                         Log.d("Id", String.valueOf(_type));
                         history.remove(history.size() - 1);
@@ -168,7 +156,7 @@ public class MainActivity extends AppCompatActivity
                 {
                     Log.e("Navegación de historial", ex.getMessage());
                 }
-            }*/
+            }
         }
     }
 
@@ -240,7 +228,19 @@ public class MainActivity extends AppCompatActivity
         fragment.setArguments(args);
 
         navigate(R.id.rLayoutEventList, fragment);
-        history.add(newNav);
+
+        try
+        {
+            if (history.get(history.size() - 1) != newNav)
+                history.add(newNav);
+            Log.d("Historial", String.valueOf(history.size()));
+        }
+        catch (Exception ex)
+        {
+            Log.d("History", "Historial vacío");
+            history.add(newNav);
+        }
+
         return true;
     }
 

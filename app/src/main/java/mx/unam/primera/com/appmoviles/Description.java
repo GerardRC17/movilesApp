@@ -10,6 +10,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -146,9 +147,6 @@ public class Description extends Fragment
         {
             Log.d("OnCreateView", "Error al iniciar el nuevo hilo");
         }
-
-
-
 
         return view;
     }
@@ -308,15 +306,18 @@ public class Description extends Fragment
 
     private void addToCalendar() {
         try {
-            Calendar cale = Calendar.getInstance();
-            Intent intent = new Intent(Intent.ACTION_EDIT);
-            intent.setType("vnd.android.cursor.item/event");
+            Calendar beginTime = Calendar.getInstance();
+            Calendar endTime = Calendar.getInstance();
 
-            intent.putExtra("beginTime", cale.getTimeInMillis());
-            intent.putExtra("allDay", true);
-            intent.putExtra("rrule", "FREQ=YEARLY");
-            intent.putExtra("endTime", cale.getTimeInMillis() + 60 * 60 * 1000);
-            intent.putExtra("title", "Este es un intento de prueba... Aguacate");
+            beginTime.setTime(event.getDate());
+            endTime.setTime(event.getDate());
+
+            Intent intent = new Intent(Intent.ACTION_INSERT)
+                    .setData(CalendarContract.Events.CONTENT_URI)
+                    .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, beginTime.getTimeInMillis())
+                    .putExtra(CalendarContract.EXTRA_EVENT_END_TIME, endTime.getTimeInMillis())
+                    .putExtra(CalendarContract.Events.TITLE, event.getName())
+                    .putExtra(CalendarContract.Events.DESCRIPTION, event.getDescription());
             startActivity(intent);
         }
         catch(Exception ex)
