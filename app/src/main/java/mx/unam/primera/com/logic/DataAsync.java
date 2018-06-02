@@ -10,6 +10,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import mx.unam.primera.com.model.ConfigData;
 import mx.unam.primera.com.model.Event;
 
 /**
@@ -26,12 +27,14 @@ public class DataAsync extends AsyncTask<Event, Void, String>
         int response = 0;
         StringBuilder result = null;
 
+        ConfigData cd = new ConfigData();
+
         try
         {
             // Cambiar por dirección web
             String strUrl =
                     //"http://192.168.1.64/MovilesWebService/scripts/service/rest/req_events.php?evId="
-                            "http://livebr.esy.es/scripts/service/rest/req_events.php?evId="
+                            cd.getFullApiUrl()+"req_events.php?evId="
                             //"Dirección web"
                             + event.getId().toString()
                             + "&tpId=";
