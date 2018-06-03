@@ -1,8 +1,6 @@
-package mx.unam.primera.com.adapter;
+package mx.novaterra.mobile.com.adapter;
 
 import android.content.Context;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,11 +10,10 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import mx.unam.primera.com.appmoviles.R;
-import mx.unam.primera.com.model.Channel;
+import mx.novaterra.mobile.com.appmoviles.R;
+import mx.novaterra.mobile.com.model.Channel;
 
 /**
  * Created by Samuel on 25/05/2017.

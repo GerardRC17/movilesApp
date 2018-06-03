@@ -1,6 +1,5 @@
-package mx.unam.primera.com.appmoviles;
+package mx.novaterra.mobile.com.appmoviles;
 
-import android.app.FragmentManager;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.media.MediaPlayer;
@@ -19,24 +18,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
-import org.json.JSONArray;
-
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-
-import static android.R.attr.onClick;
-import mx.unam.primera.com.logic.*;
-import mx.unam.primera.com.model.Event;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,

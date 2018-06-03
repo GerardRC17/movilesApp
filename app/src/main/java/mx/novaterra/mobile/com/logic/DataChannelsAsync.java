@@ -1,4 +1,4 @@
-package mx.unam.primera.com.logic;
+package mx.novaterra.mobile.com.logic;
 
 import android.os.AsyncTask;
 import android.util.Log;
@@ -10,8 +10,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import mx.unam.primera.com.model.ConfigData;
-import mx.unam.primera.com.model.Event;
+import mx.novaterra.mobile.com.model.ConfigData;
 
 /**
  * Created by Samuel on 20/05/2017.

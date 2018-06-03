@@ -1,4 +1,4 @@
-package mx.unam.primera.com.model;
+package mx.novaterra.mobile.com.model;
 
 import java.util.ArrayList;
 import java.util.Date;

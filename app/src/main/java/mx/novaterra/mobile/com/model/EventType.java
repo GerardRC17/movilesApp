@@ -1,4 +1,4 @@
-package mx.unam.primera.com.model;
+package mx.novaterra.mobile.com.model;
 
 /**
  * Created by Samuel on 12/05/2017.

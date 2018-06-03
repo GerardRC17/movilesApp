@@ -1,27 +1,21 @@
-package mx.unam.primera.com.adapter;
+package mx.novaterra.mobile.com.adapter;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import mx.unam.primera.com.appmoviles.Description;
-import mx.unam.primera.com.appmoviles.MainActivity;
-import mx.unam.primera.com.appmoviles.R;
-import mx.unam.primera.com.model.Event;
+import mx.novaterra.mobile.com.appmoviles.Description;
+import mx.novaterra.mobile.com.appmoviles.MainActivity;
+import mx.novaterra.mobile.com.appmoviles.R;
+import mx.novaterra.mobile.com.model.Event;
 
 /**
  * Created by Samuel on 25/05/2017.

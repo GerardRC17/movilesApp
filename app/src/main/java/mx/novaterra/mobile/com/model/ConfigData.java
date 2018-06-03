@@ -1,4 +1,4 @@
-package mx.unam.primera.com.model;
+package mx.novaterra.mobile.com.model;
 
 /**
  * Esta clase pretende optimizar el acceso a los datos compartidos de la aplicación

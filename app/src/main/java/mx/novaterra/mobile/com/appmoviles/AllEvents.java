@@ -1,4 +1,4 @@
-package mx.unam.primera.com.appmoviles;
+package mx.novaterra.mobile.com.appmoviles;
 
 import android.content.Context;
 import android.net.Uri;
@@ -17,9 +17,9 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-import mx.unam.primera.com.adapter.EventAdapter;
-import mx.unam.primera.com.logic.Service;
-import mx.unam.primera.com.model.Event;
+import mx.novaterra.mobile.com.adapter.EventAdapter;
+import mx.novaterra.mobile.com.logic.Service;
+import mx.novaterra.mobile.com.model.Event;
 
 
 /**

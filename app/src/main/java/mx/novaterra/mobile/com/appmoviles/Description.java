@@ -1,13 +1,12 @@
-package mx.unam.primera.com.appmoviles;
+package mx.novaterra.mobile.com.appmoviles;
 
 import android.Manifest;
 import android.content.Intent;
-import mx.unam.primera.com.logic.*;
+import mx.novaterra.mobile.com.logic.*;
 //
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.CalendarContract;
@@ -31,8 +30,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import mx.unam.primera.com.adapter.ChannelAdapter;
-import mx.unam.primera.com.model.Event;
+import mx.novaterra.mobile.com.adapter.ChannelAdapter;
+import mx.novaterra.mobile.com.model.Event;
 
 
 /**

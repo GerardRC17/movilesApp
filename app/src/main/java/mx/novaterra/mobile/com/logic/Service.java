@@ -1,4 +1,4 @@
-package mx.unam.primera.com.logic;
+package mx.novaterra.mobile.com.logic;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -17,8 +17,8 @@ import java.util.concurrent.CancellationException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
-import mx.unam.primera.com.model.Channel;
-import mx.unam.primera.com.model.Event;
+import mx.novaterra.mobile.com.model.Channel;
+import mx.novaterra.mobile.com.model.Event;
 
 /**
  * Created by Samuel on 12/05/2017.

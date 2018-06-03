@@ -1,4 +1,4 @@
-package mx.unam.primera.com.appmoviles;
+package mx.novaterra.mobile.com.appmoviles;
 
 import org.junit.Test;
 
