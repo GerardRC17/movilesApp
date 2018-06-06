@@ -1,72 +1,72 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             xmlns:app="http://schemas.android.com/apk/res-auto"
-             tools:context="mx.novaterra.mobile.com.appmoviles.Description">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="mx.novaterra.mobile.com.appmoviles.Description">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-            <FrameLayout
-                android:id="@+id/flBasicInfo"
-                android:layout_width="match_parent"
-                android:layout_height="220dp"
-                android:background="#fefeef"
-                android:layout_gravity="top">
+        <FrameLayout
+            android:id="@+id/flBasicInfo"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:layout_gravity="top"
+            android:background="#fefeef">
 
-                <LinearLayout
-                    android:id="@+id/linlayBasicInfo"
-                    android:layout_width="250dp"
+            <LinearLayout
+                android:id="@+id/linlayBasicInfo"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|bottom"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                android:elevation="2dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txvEventTitle"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="5dp"
-                    android:orientation="vertical"
-                    android:layout_gravity="right|bottom"
-                    android:elevation="2dp">
+                    android:elevation="2dp"
+                    android:text="Wrestlemania33"
+                    android:textAlignment="viewEnd"
+                    android:textColor="#333222"
+                    android:textSize="37dp" />
 
-                    <TextView
-                        android:id="@+id/txvEventTitle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Wrestlemania33"
-                        android:textColor="#333222"
-                        android:textSize="37dp"
-                        android:textAlignment="viewEnd"
-                        android:elevation="2dp"/>
-
-                    <TextView
-                        android:id="@+id/txvSchedule"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:elevation="6dp"
-                        android:text="Horario"
-                        android:textAlignment="textEnd"
-                        android:textSize="20dp"/>
-                </LinearLayout>
-
-                <ImageView
-                    android:id="@+id/imgType"
-                    android:layout_width="280dp"
+                <TextView
+                    android:id="@+id/txvSchedule"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="left" />
-            </FrameLayout>
+                    android:elevation="6dp"
+                    android:text="Horario"
+                    android:textAlignment="textEnd"
+                    android:textSize="20dp" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/imgType"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left" />
+        </FrameLayout>
 
         <!-- Ya sea que sea ScrollView, ListView o parecidos-->
         <TextView
             android:id="@+id/txvDetails"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Descripción del evento"
-            android:textSize="18dp"
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:layout_marginTop="5dp"/>
+            android:layout_marginTop="5dp"
+            android:text="Descripción del evento"
+            android:textSize="18dp" />
 
         <ListView
             android:id="@+id/lvChannelList"
@@ -85,14 +85,24 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
+        android:src="@android:drawable/ic_menu_my_calendar"
         app:fabSize="auto"
-        app:rippleColor="@color/BLANCO"
-        android:src="@android:drawable/ic_menu_my_calendar"/>
+        app:rippleColor="@color/BLANCO" />
 
     <ProgressBar
         android:id="@+id/pbProgress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:visibility="visible"/>
+        android:visibility="visible" />
+
+    <Button
+        android:id="@+id/link"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_margin="@dimen/fab_margin"
+        android:text="LINK" />
 </FrameLayout>
