@@ -309,7 +309,7 @@ public class Description extends Fragment
             Calendar endTime = Calendar.getInstance();
 
             beginTime.setTime(event.getDate());
-            endTime.setTime(event.getDate());
+            endTime.setTime(event.getDateEnd());
 
             Intent intent = new Intent(Intent.ACTION_INSERT)
                     .setData(CalendarContract.Events.CONTENT_URI)

@@ -12,10 +12,14 @@ public class Channel
     private String _name;
     private String _abv;
     private URL _imgPath;
+    private URL _br;
+
+    private static final String DEFAULT_CHANNEL_IMG = "http://18.221.160.127/guide-ws/img/web_hi_res_512.png";
 
     public Channel()
     {
         _imgPath = null;
+        _br = null;
     }
 
     //region Propierties
@@ -56,6 +60,26 @@ public class Channel
     public void setImageUrl(URL imageUrl)
     {
         this._imgPath = imageUrl;
+    }
+
+    public URL getBroadcastUrl()
+    {
+        return this._br;
+    }
+    public void setBroadcastUrl(URL broadcast)
+    {
+        this._br = broadcast;
+    }
+
+    public void setDefaultImage()
+    {
+        try {
+            String s = this.DEFAULT_CHANNEL_IMG;
+            this._imgPath = new URL(s);
+        } catch (Exception ex)
+        {
+
+        }
     }
     //endregion
 }

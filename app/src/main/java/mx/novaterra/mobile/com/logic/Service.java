@@ -56,9 +56,12 @@ public class Service
                 event.setName(ob.getString("ev_name"));
                 event.setDescription(ob.getString("ev_des"));
                 String strDate = ob.getString("ev_sch");
+                String strDateEnd = ob.getString("ev_sch_end");
                 strDate = strDate.replace("-", "/");
+                strDateEnd = strDateEnd.replace("-", "/");
                 SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.US);
                 event.setDate(format.parse(strDate));
+                event.setDateEnd((format.parse(strDateEnd)));
 
                 try
                 {
@@ -95,7 +98,23 @@ public class Service
                 channel.setId(Integer.parseInt(ob.getString("ch_id")));
                 channel.setName(ob.getString("ch_name"));
                 channel.setAbbreviation(ob.getString("ch_abv"));
-                channel.setImageUrl(new URL(ob.getString("ch_img")));
+
+                // Asigna imagen de canal.
+                // Si no encuentra imagean alguna, o una URL válida, asigna una imagen default.
+                try {
+                    channel.setImageUrl(new URL(ob.getString("ch_img")));
+                } catch (Exception ex)
+                {
+                    channel.setDefaultImage();
+                }
+
+                // Asigna URL
+                try {
+                    channel.setBroadcastUrl(new URL(ob.getString("ev_ch_url")));
+                } catch (Exception ex)
+                {
+                    channel.setBroadcastUrl(null);
+                }
 
                 channels.add(channel);
             }
