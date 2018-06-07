@@ -4,19 +4,16 @@
 
     <item
         android:id="@+id/nav_all"
-        android:title="Todos"
-        />
+        android:title="Todos" />
 
     <item android:title="Deportes...">
             <menu>
         <item
             android:id="@+id/nav_americano"
-            android:title="Futbol Americano"
-            />
+            android:title="Futbol Americano" />
         <item
             android:id="@+id/nav_soccer"
-            android:title="Futbol Soccer"
-            />
+            android:title="Futbol Soccer" />
         <item
             android:id="@+id/nav_bascket"
             android:title="Basketball" />
