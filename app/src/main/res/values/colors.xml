@@ -3,7 +3,8 @@
     <color name="colorPrimary">#607D8B</color>
     <color name="colorPrimaryDark">#455A64</color>
     <color name="colorAccent">#607D8B</color>
-    <color name="BLANCO">#FFFFFF</color>
+    <color name="customLightGray">#efefef</color>
+    <color name="BLANCO">#ffffff</color>
     <color name="NARANJA">#F28220</color>
     <color name="MORADO">#C733C9</color>
     <color name="PISTACHO">#C0D787</color>

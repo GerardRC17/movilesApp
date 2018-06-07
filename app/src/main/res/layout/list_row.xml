@@ -20,4 +20,6 @@
         android:layout_marginLeft="10dp"
         android:textColor="@color/NEGRO"
         android:layout_toRightOf="@id/ivChannelImage"/>
+
+    <!-- Boton -->
 </RelativeLayout>
