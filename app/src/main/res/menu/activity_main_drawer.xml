@@ -33,7 +33,11 @@
                 android:title="Conciertos" />
             <item
                 android:id="@+id/nav_event"
-                android:title="Eventos especiales" />
+                android:title="Premios" />
+
+            <item
+                android:id="@+id/nav_other"
+                android:title="Otros" />
         </menu>
     </item>
 

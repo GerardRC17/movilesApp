@@ -133,6 +133,9 @@ public class MainActivity extends AppCompatActivity
                             case 6:
                                 _id=R.id.nav_event;
                                 break;
+                            case 7:
+                                _id=R.id.nav_other;
+                                break;
                         }
                         navigate(_id);
                     }
@@ -208,6 +211,11 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_event:
                 args.putSerializable("EventType", 6);
                 newNav = 6;
+                break;
+
+            case R.id.nav_other:
+                args.putSerializable("EventType", 7);
+                newNav = 7;
                 break;
         }
         fragment.setArguments(args);

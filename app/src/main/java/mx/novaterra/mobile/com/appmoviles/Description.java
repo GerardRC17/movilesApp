@@ -245,6 +245,9 @@ public class Description extends Fragment
                             event.getType().setImageResource(R.drawable.premiosgrande_rect);
                             event.getType().setColorHex("D1C103");
                             break;
+                        case 7:
+                            event.getType().setColorHex("BBBBBB");
+                            break;
                         default:
                             break;
                     }
