@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#607D8B</color>
+    <color name="colorPrimary">#efefef</color>
     <color name="colorPrimaryDark">#455A64</color>
     <color name="colorAccent">#607D8B</color>
+
     <color name="customLightGray">#efefef</color>
+    <color name="customDarkGray">#333333</color>
+
     <color name="BLANCO">#ffffff</color>
     <color name="NARANJA">#F28220</color>
     <color name="MORADO">#C733C9</color>
