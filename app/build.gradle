@@ -1,15 +1,16 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.3"
+    compileSdkVersion 27
+    buildToolsVersion '27.0.3'
+
     defaultConfig {
-        applicationId "mx.unam.primera.com.appmoviles"
+        applicationId 'mx.novaterra.mobile.com.guia'
         minSdkVersion 21
-        targetSdkVersion 25
-        versionCode 1
-        versionName "1.0"
+        targetSdkVersion 27
+        versionName '0.2.2.0.07062018'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        versionCode 185
     }
     buildTypes {
         release {
@@ -20,6 +21,8 @@ android {
     configurations.all {
         resolutionStrategy.force 'com.google.code.findbugs:jsr305:1.3.9'
     }
+    productFlavors {
+    }
 }
 
 dependencies {
@@ -27,7 +30,6 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support:support-v4:25.3.1'
     compile 'com.android.support:design:25.3.1'

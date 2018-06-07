@@ -20,4 +20,23 @@
         android:layout_marginLeft="10dp"
         android:textColor="@color/NEGRO"
         android:layout_toRightOf="@id/ivChannelImage"/>
+
+
+    <!-- Se cambia la idea del botón por ícono que indique que
+        el elemento lo redericcionará a un enlace al dar
+        click sobre él -->
+    <LinearLayout
+        android:id="@+id/llBroadcastAvailable"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="5dp"
+        android:visibility="gone"
+        android:gravity="center_vertical">
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/world_d" />
+    </LinearLayout>
+
 </RelativeLayout>
