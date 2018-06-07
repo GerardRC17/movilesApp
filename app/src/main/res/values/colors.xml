@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#607D8B</color>
+    <color name="colorPrimary">#efefef</color>
     <color name="colorPrimaryDark">#455A64</color>
     <color name="colorAccent">#607D8B</color>
-    <color name="BLANCO">#FFFFFF</color>
+
+    <color name="customLightGray">#efefef</color>
+    <color name="customDarkGray">#333333</color>
+
+    <color name="BLANCO">#ffffff</color>
     <color name="NARANJA">#F28220</color>
     <color name="MORADO">#C733C9</color>
     <color name="PISTACHO">#C0D787</color>
@@ -15,4 +19,7 @@
     <color name="AMARILLO">#FCFA36</color>
     <color name="CELESTE">#ADDBD9</color>
     <color name="COBALTO">#0C23B1</color>
+    <color name="ligtblue">#E1F5FE</color>
+    <color name="blue">#01579B</color>
+    <color name="midleblue">#0288D1</color>
 </resources>
