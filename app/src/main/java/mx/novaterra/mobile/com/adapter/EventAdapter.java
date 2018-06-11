@@ -1,12 +1,14 @@
 package mx.novaterra.mobile.com.adapter;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -30,6 +32,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         public ImageView imagen;
         public TextView txvTitle, txvDescription;
         public RelativeLayout rvEvent;
+       // public FloatingActionButton botontv;
 
         public EventViewHolder(View v)
         {
@@ -38,6 +41,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
             txvTitle =(TextView)v.findViewById(R.id.txvTitle);
             txvDescription = (TextView)v.findViewById(R.id.txvDescription);
             rvEvent = (RelativeLayout)v.findViewById(R.id.rvEvent);
+            //botontv=(FloatingActionButton)v.findViewById(R.id.botontv);
         }
 
         /*@Override

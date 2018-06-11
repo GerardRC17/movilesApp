@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ImageView
         android:id="@+id/ivChannelImage"
@@ -22,6 +23,8 @@
         android:layout_toRightOf="@id/ivChannelImage"/>
 
 
+
+
     <!-- Se cambia la idea del botón por ícono que indique que
         el elemento lo redericcionará a un enlace al dar
         click sobre él -->
@@ -38,5 +41,16 @@
             android:layout_height="match_parent"
             android:src="@drawable/world_d" />
     </LinearLayout>
+
+    <Button
+        android:id="@+id/link_btn"
+        style="@android:style/Widget.Material.Light.Button.Inset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:text="Link"
+        android:drawableEnd="@drawable/ic_video"
+        />
 
 </RelativeLayout>
