@@ -8,9 +8,9 @@ android {
         applicationId 'mx.novaterra.mobile.com.guia'
         minSdkVersion 21
         targetSdkVersion 27
-        versionName '0.2.2.1.07062018'
+        versionName '0.2.3.0.11062018'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        versionCode 186
+        versionCode 187
     }
     buildTypes {
         release {
