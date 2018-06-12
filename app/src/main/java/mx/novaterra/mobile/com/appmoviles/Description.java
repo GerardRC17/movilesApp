@@ -66,6 +66,7 @@ public class Description extends Fragment
     FrameLayout flBasicInfo;
     ListView lvChannelList;
     FloatingActionButton fbtnAddToCalendar;
+    //FloatingActionButton botontv;
 
     public Description() {
         // Required empty public constructor
@@ -117,6 +118,10 @@ public class Description extends Fragment
         flBasicInfo = (FrameLayout)view.findViewById(R.id.flBasicInfo);
         lvChannelList = (ListView)view.findViewById(R.id.lvChannelList);
         fbtnAddToCalendar = (FloatingActionButton)view.findViewById(R.id.fbtnAddToCalendar);
+        //botontv =(FloatingActionButton)view.findViewById(R.id.botontv);
+
+
+
         fbtnAddToCalendar.setOnClickListener(new View.OnClickListener()
         {
             @Override
