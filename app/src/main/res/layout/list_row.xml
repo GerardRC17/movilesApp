@@ -34,15 +34,17 @@
         android:layout_height="50dp"
         android:layout_alignParentRight="true"
         android:layout_marginRight="5dp"
-        android:visibility="gone"
+        android:visibility="visible"
         android:gravity="center_vertical">
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="match_parent"
-            android:src="@drawable/world_d" />
+
+        <Button
+            android:id="@+id/link_btn"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:background="@drawable/world_d"/>
     </LinearLayout>
 
-    <Button
+    <!-- <Button
         android:id="@+id/link_btn"
         style="@android:style/Widget.Material.Light.Button.Inset"
         android:layout_width="wrap_content"
@@ -50,7 +52,7 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
         android:text="Link"
-        android:drawableEnd="@drawable/ic_video"
-        />
+        android:drawableEnd="@drawable/world_d"
+        /> -->
 
 </RelativeLayout>

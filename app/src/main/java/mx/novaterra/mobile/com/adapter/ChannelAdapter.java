@@ -5,8 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -19,7 +21,7 @@ import mx.novaterra.mobile.com.model.Channel;
  * Created by Samuel on 25/05/2017.
  */
 
-public class ChannelAdapter extends ArrayAdapter<Channel>
+public class ChannelAdapter extends ArrayAdapter<Channel> implements View.OnClickListener
 {
     public ChannelAdapter(Context context, List<Channel> channels)
     {
@@ -42,6 +44,8 @@ public class ChannelAdapter extends ArrayAdapter<Channel>
         // Referencias a UI
         ImageView ivChannel = (ImageView)convertView.findViewById(R.id.ivChannelImage);
         TextView txvChannelName = (TextView)convertView.findViewById(R.id.txvChannelName);
+        Button btnGoTo = (Button)convertView.findViewById(R.id.link_btn);
+        btnGoTo.setOnClickListener(this);
 
         // Lead actual.... ??
         // Objeto actual
@@ -52,5 +56,10 @@ public class ChannelAdapter extends ArrayAdapter<Channel>
         txvChannelName.setText(channel.getName());
 
         return convertView;
+    }
+
+    @Override
+    public void onClick(View v) {
+        // Toast.makeText(v.getContext(), "Click",Toast.LENGTH_SHORT).show();
     }
 }
